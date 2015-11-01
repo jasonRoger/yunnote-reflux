@@ -1,0 +1,63 @@
+.m-code {
+	display: flex;
+	height: 100%;
+	.title {
+        width: 600px;
+        height: 30px;
+        line-height: 30px;
+        margin: 10px 10px 10px 20px;
+        padding-left: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 1px 1px 1px #ccc;
+        font-size: 14px;
+        color: #666;
+    }
+    .save-btn {
+        width: 100px;
+        letter-spacing: 11px;
+        padding-left: 20px;
+        margin: 10px;
+    }
+	.col1 {
+		display: flex;
+		flex: 3;
+		flex-direction: column;
+		.row1 {
+			flex: 1;
+			border-bottom: 14px solid rgb(38, 51, 57);
+		}
+		.row2 {
+			flex: 1;
+		}
+	}
+	.col2 {
+		flex: 2;
+	}
+	.col3 {
+		display: flex;
+		flex: 2;
+		background: #fff;
+	}
+	.preview {
+		width: 100%;
+		flex: 1;
+		border: none;
+	}
+	::-webkit-scrollbar {
+		width:14px; /*滚动条宽度*/
+	}
+	::-webkit-scrollbar-track {
+		background-color: rgb(38, 51, 57); /*滑道全部*/
+	}
+	::-webkit-scrollbar-thumb {
+		background-color:#ccc; /*滑动条表面*/
+		border: solid 2px #666; /*滑动条边框*/
+		border-radius:8px;  /*滑动条圆角宽度*/
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background-color:#F3F3E0;
+	}
+	.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+		display: block!important;
+	}
+}

@@ -1,0 +1,73 @@
+@charset "utf-8";
+.path {
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	font-size: 14px;
+}
+.path .back-btn{
+	display: inline-block;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 10px 0 20px;
+	cursor: pointer;
+}
+.path .back-btn cite{
+	display: inline-block;
+	height: 14px;
+	line-height: 14px;
+	padding-right: 10px;
+	border-right: 1px solid #ccc;
+	font-style: normal;
+}
+.path .back-btn:hover {
+	text-decoration: underline;
+}
+.path .path-list {
+	display: inline-block;
+	margin-left: -26px;
+}
+.path-list li {
+	display: inline-block;
+	padding: 0 6px 0 28px;
+	height: 50px;
+	line-height: 50px;
+	background: url(../../images/path_arrow.png) no-repeat 0 50%;
+	cursor: pointer;
+}
+.path-list li:last-child {
+	font-weight: bold;
+	cursor: default;
+}
+.path-list li:last-child:hover {
+	text-decoration: none;
+}
+.path-list li.root {
+	background: none;
+}
+.path-list li:hover {
+	text-decoration: underline;
+}
+.show-path {
+    width: 100%;
+    display: flex;
+    padding-right: 20px;
+    background: #09c;
+    color: #fff;
+    .save-btn {
+        width: 100px;
+        letter-spacing: 11px;
+        padding-left: 20px;
+        margin: 10px;
+    }
+    .path-wrapper {
+        flex: 1;
+    }
+    .file-name {
+        flex: 1;
+        text-align: center;
+        line-height: 50px;
+        font-size: 16px;
+    }
+}

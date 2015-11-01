@@ -1,0 +1,41 @@
+@charset "utf-8";
+/* create an arrow that points up */
+.icon-arrow-up {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent; 
+	border-right: 5px solid transparent; 
+	border-bottom: 5px solid #2f2f2f;
+	font-size: 0;
+	line-height: 0;
+}
+/* create an arrow that points down */
+.icon-arrow-down {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #2f2f2f;
+	font-size: 0;
+	line-height: 0;
+}
+/* create an arrow that points left */
+.icon-arrow-left {
+	width: 0; 
+	height: 0; 
+	border-bottom: 5px solid transparent; 
+	border-top: 5px solid transparent; 
+	border-right: 5px solid #2f2f2f; 
+	font-size: 0;
+	line-height: 0;
+}
+/* create an arrow that points right */
+.icon-arrow-right {
+	width: 0; 
+	height: 0; 
+	border-bottom: 5px solid transparent; 
+	border-top: 5px solid transparent;
+	border-left: 5px solid #2f2f2f;
+	font-size: 0;
+	line-height: 0;
+}

@@ -1,0 +1,32 @@
+.m-markdown {
+	.editormd {
+		margin: 0;
+	}
+	.editormd-html-preview, .editormd-preview-container {
+		background: #f9f9f5;
+	}
+	.editormd .CodeMirror {
+		background: #f9f9f5;
+	}
+	.content-ft {
+		height: 20px;
+		background: #ccc;
+	}
+}
+.m-show-markdown {
+	.editormd-preview {
+		position: static;
+		display: block;
+		flex: 1;
+		height: auto;
+		width: auto;
+		background: #474747;
+		.markdown-body {
+			width: 980px;
+			margin: 0 auto;
+		}
+	}
+	.content-ft {
+		background: #474747;
+	}
+}

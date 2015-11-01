@@ -1,0 +1,47 @@
+@charset "utf-8";
+.article {
+    height: 100%;
+    .article-hd {
+        position: relative;
+        display: flex;
+        height: 50px;
+        background: #09c;
+        .title {
+            width: 500px;
+            height: 30px;
+            line-height: 30px;
+            margin: 10px 10px 10px 20px;
+            padding-left: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 1px 1px 1px #ccc;
+            font-size: 14px;
+        }
+        .save-btn {
+            width: 100px;
+            letter-spacing: 11px;
+            padding-left: 20px;
+            margin: 10px;
+        }
+        .show-article {
+            width: 100%;
+            display: flex;
+            padding-right: 20px;
+            background: #09c;
+            color: #fff;
+            .path-wrapper {
+                flex: 1;
+            }
+            .file-name {
+                flex: 1;
+                text-align: center;
+                line-height: 50px;
+                font-size: 16px;
+            }
+        }
+    }
+    .article-bd {
+        height: 100%;
+        padding: 10px 10px 0 20px;
+        overflow-y: scroll;
+    }
+}
