@@ -16,7 +16,8 @@
 .m-show-markdown {
 	.editormd-preview {
 		position: static;
-		display: block;
+		display: flex;
+		flex-direction: column;
 		flex: 1;
 		height: auto;
 		width: auto;
@@ -24,6 +25,7 @@
 		.markdown-body {
 			width: 980px;
 			margin: 0 auto;
+			flex: 1;
 		}
 	}
 	.content-ft {
