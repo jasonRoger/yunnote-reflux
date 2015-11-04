@@ -1,11 +1,11 @@
 var express = require('express'),
+	fs = require('fs'),
 	session = require('express-session'),
 	MongoStore = require('connect-mongo')(session),
 	router = express.Router(),
 	userController = require('../models/user.js'),
 	navController = require("../models/nav.js"),
 	fileController = require('../models/file.js'),
-	markdownController = require('../models/markdown.js'),
 	codeController = require('../models/code.js'),
 	bodyParser = require('body-parser'),
 	connect = require('connect'),
@@ -14,6 +14,7 @@ var express = require('express'),
 	upload = multer({ dest: 'public/uploads/pdf/' }),
 	async = require('async'),
 	config = require("../config.js");
+var systemProfile = fs.readFileSync(__dirname + '/../public/editormd/default.md', 'utf-8');
 
 module.exports = function(app) {
 	//app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,13 +32,20 @@ module.exports = function(app) {
 		})
 	}));
 
-	app.get('/', checkLogin);
-	app.get("/", function(req, res, next) {
+	app.get('/index', checkLogin);
+	app.get("/index", function(req, res, next) {
 		res.render("index", {title: "云笔记"})
 	});
-	app.get('/', checkNotLogin);
+	app.get("/", function(req, res, next) {
+		res.redirect('/index');
+	});
+	app.get('/login', checkNotLogin);
 	app.get("/login", function(req, res, next) {
 		res.render("login", {title: "云笔记"})
+	});
+
+	app.get("/reg", function(req, res, next) {
+		res.render("reg", {title: "云笔记"})
 	});
 
 	app.post("/api/checkLogin.json", function(req, res, next) {
@@ -52,11 +60,43 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post("/api/addUser.json", function(req, res, next) {
+		var baseParams = {
+			username: req.body.username,
+			password: req.body.password
+		}
+
+		userController.add(baseParams, function(data) {
+			if(!data.ret) return res.send(data);
+			var defaultNav = {
+				name: "系统介绍",
+				sort: 1,
+				author: req.body.username
+			}
+			navController.add(defaultNav, function(data) {
+				if(!data.ret) return res.send(data);
+				var firstMarkDown = {
+						level: 1,
+						type: 'markdown',
+						pid: data.data.id,
+						name: "系统使用说明",
+						author: req.body.username,
+						sort: 1,
+						size: 0,
+						detail: systemProfile
+					}
+
+				fileController.add(firstMarkDown, function(data) {
+					res.send(data);
+				});
+			});
+		});
+	});
+
 	app.get("/api/navList.json", function(req, res, next) {
 		var params = {
 			author: req.session.username
 		};
-		console.log(params);
 		navController.getAll(params, function(data) {
 			res.send(data);
 		});
@@ -279,57 +319,9 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post("/api/addMarkdown.json", function(req, res, next) {
-
-		var baseParams = {
-			level: req.body.level,
-			pid: req.body.pid,
-			author: req.session.username
-		}
-
-		fileController.checkExist(assign({type: req.body.type, name: req.body.name}, baseParams), function(data) {
-			if(!data.ret) return res.send(data);
-
-			fileController.getMaxSort(baseParams, function(data) {
-				if(!data.ret) return res.send(data);
-
-				var newData = assign(baseParams,{
-					type: req.body.type,
-					name: req.body.name,
-					sort: data.data.sort + 1,
-					size: 0,
-					detail: ""
-				});
-
-				fileController.add(newData, function(data) {
-					if(!data.ret) return res.send(data);
-
-					var markdownData = {
-						pid: data.data.id,
-						level: req.body.level,
-						name: req.body.name,
-						originMD: req.body.originMD,
-						convertedMD: req.body.convertedMD,
-						author: req.session.username
-					}
-					markdownController.add(markdownData, function(data) {
-						res.send(data);
-					});
-				});
-			});
-		});
-	});
-
 	app.get("/api/getCode.json", function(req, res, next) {
 
 		codeController.getOne({pid: req.query.id}, function(data) {
-			res.send(data);
-		});
-	});
-
-	app.get("/api/getMarkdown.json", function(req, res, next) {
-
-		markdownController.getOne({pid: req.query.id}, function(data) {
 			res.send(data);
 		});
 	});
@@ -356,27 +348,6 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post("/api/updateMarkdown.json", function(req, res, next) {
-
-		var newFile = {
-				name: req.body.name,
-				detail: ""
-	    	}
-
-		fileController.update({_id: req.body.id}, newFile, function(data) {
-			if(!data.ret) return res.send(data);
-
-			var markdownData = {
-				name: req.body.name,
-				originMD: req.body.originMD,
-				convertedMD: req.body.convertedMD,
-			}
-			markdownController.update({pid: req.body.id}, markdownData, function(data) {
-				res.send(data);
-			});
-		});
-	});
-
 	function checkLogin(req, res, next) {
 		if(!req.session.username) {
 			res.redirect('/login');
@@ -385,7 +356,7 @@ module.exports = function(app) {
 	}
 	function checkNotLogin(req, res, next) {
 		if(req.session.username) {
-			res.redirect('/');
+			res.redirect('/index');
 		}
 		next();
 	}

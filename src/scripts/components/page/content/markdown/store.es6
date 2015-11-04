@@ -4,9 +4,9 @@ var Reflux = require("reflux"),
 	markdownActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/getMarkdown.json",
-	ADD: "/api/addMarkdown.json",
-	UPDATE: "/api/updateMarkdown.json"
+	LIST: "/api/getWord.json",
+	ADD: "/api/addFile.json",
+	UPDATE: "/api/updateFile.json"
 }
 
 var showStore = Reflux.createStore({

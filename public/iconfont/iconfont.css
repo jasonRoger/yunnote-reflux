@@ -29,7 +29,6 @@
 .icon-down:before { content: "\e608"; }
 .icon-yidong:before { content: "\e609"; }
 .icon-edit:before { content: "\e60a"; }
-.icon-filecodeo:before { content: "\e60b"; }
 .icon-down1:before { content: "\e60c"; }
 .icon-file:before { content: "\e60d"; }
 .icon-iconwenjianshangchuan:before { content: "\e60e"; }
@@ -54,10 +53,11 @@
 .icon-delete2:before { content: "\e621"; }
 .icon-xianglike72:before { content: "\e622"; }
 .icon-socialmarkdown:before { content: "\e623"; }
+.icon-weibiaoti203:before { content: "\e62e"; }
 .icon-icondelete:before { content: "\e624"; }
 .icon-password:before { content: "\e62c"; }
 .icon-zhongmingming16px:before { content: "\e625"; }
 .icon-dianbozhibov1213:before { content: "\e626"; }
 .icon-like1:before { content: "\e627"; }
 .icon-password1:before { content: "\e62d"; }
-.icon-filecodeo1:before { content: "\e628"; }
+.icon-filecodeo:before { content: "\e628"; }

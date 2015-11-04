@@ -21,7 +21,7 @@ var Operator = React.createClass({
 				level: hashObj.handle == "edit" ? hashObj.level : res.data.level,
 				type: "markdown",
 				handle: "show",
-				id: hashObj.handle == "edit" ? hashObj.id : res.data.pid
+				id: hashObj.handle == "edit" ? hashObj.id : res.data.id
 			});
 		}else {
 			Modal.error({
@@ -35,7 +35,7 @@ var Operator = React.createClass({
 		var markdownEditor = editormd("editormd", {
             path: "./editormd/lib/",
             height: "auto",
-            markdown : data.originMD,
+            markdown : data.detail,
             tex : true,                   // 开启科学公式TeX语言支持，默认关闭
             flowChart : true,             // 开启流程图支持，默认关闭
             sequenceDiagram : true       // 开启时序/序列图支持，默认关闭,
@@ -66,8 +66,7 @@ var Operator = React.createClass({
 	submitData: function() {
 		var data = {},
 			hashObj = router.getHashObject(),
-			originMD = this.state.markdownEditor.getMarkdown(),
-			convertedMD = this.state.markdownEditor.getPreviewedHTML();
+			originMD = this.state.markdownEditor.getMarkdown();
 
 		//hashObj.handle == edit 则是编辑操作，否则则为添加
 		//如果为新增，则hash为父folder的hash，如果为修改则是当前文档的hash
@@ -75,8 +74,7 @@ var Operator = React.createClass({
 			data = JSON.stringify({
 				id: hashObj.id,
 				name: this.state.name,
-				originMD: originMD,
-				convertedMD: convertedMD
+				detail: originMD
 			});
 			markdownActions.operateActions.updateItem(data);
 		}else {
@@ -85,8 +83,7 @@ var Operator = React.createClass({
 				type: "markdown",
 				level: parseInt(hashObj.level) + 1,
 				name: this.state.name,
-				originMD: originMD,
-				convertedMD: convertedMD
+				detail: originMD
 			});
 			markdownActions.operateActions.addItem(data);
 		}
