@@ -1,5 +1,4 @@
-var React = require('react'),
-	List = require("./List.jsx"),
+var List = require("./List.jsx"),
 	Operator = require("./Operator.jsx");
 
 var Navigator = React.createClass({

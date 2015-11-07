@@ -1,5 +1,4 @@
-var React = require('react'),
-	List = require("./list/index.jsx"),
+var List = require("./list/index.jsx"),
 	Word = require("./word/index.jsx"),
 	Markdown = require('./markdown/index.jsx'),
 	Pdf = require("./pdf/index.jsx"),

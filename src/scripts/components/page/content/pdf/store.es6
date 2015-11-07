@@ -1,5 +1,4 @@
-var Reflux = require("reflux"),
-	pdfActions = require("./action.es6");
+var pdfActions = require("./action.es6");
 
 var URL = {
 	UPLOAD: "/api/addFile.json"

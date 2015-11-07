@@ -1,6 +1,4 @@
-var React = require('react'),
-	Reflux = require('reflux'),
-	markdownActions = require('./action.es6'),
+var markdownActions = require('./action.es6'),
 	markdownStore = require('./store.es6'),
 	Path = require("../../../lib/path/index.jsx");
 
@@ -38,12 +36,10 @@ var Detail = React.createClass({
 						<div className = "base-btn save-btn" onClick = {this.editMarkdown} >编辑</div>
 					</div>
 				</div>
-				<div className = "content-bd">
-					<div className = "editormd-preview">
-						<div id="js-editormd-preview">
-			               <textarea style={{display: "none"}}></textarea>
-			            </div>
-					</div>
+				<div className = "content-bd editormd-preview">
+					<div id="js-editormd-preview">
+		               <textarea style={{display: "none"}}></textarea>
+		            </div>
 				</div>
 			</div>
 		);

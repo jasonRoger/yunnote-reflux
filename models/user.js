@@ -53,24 +53,6 @@ var userController = (function() {
 
 	return {
 		findFields: {name: 1, _id: 1},
-		getAll: function(params, callback) {
-			var params = params ? params : {};
-
-			userModel.find(params, this.findFields, {sort: {sort: 1}},function(error, data) {
-				var finalData = formatData(error, data);
-
-				callback(finalData);
-			});
-		},
-		getOne: function(params, callback) {
-			var params = params ? params : {};
-
-			userModel.findOne(params, this.findFields, {sort: {sort: 1}},function(error, data) {
-				var finalData = formatData(error, data);
-
-				callback(finalData);
-			});
-		},
 		add: function(navData, callback) {
 			var date = getFormatedDate(),
 				newUser = assign({createTime: date, modifyTime: date},navData),
@@ -86,7 +68,7 @@ var userController = (function() {
 			var date = getFormatedDate(),
 				newUser = assign({modifyTime: date},navData);
 
-			navModel.update(params, {$set: newUser}, function(error, data) {
+			userModel.update(params, {$set: newUser}, function(error, data) {
 				var finalData = formatData(error, data);
 
 				callback(finalData);
@@ -110,6 +92,17 @@ var userController = (function() {
 				callback(finalData);
 			});
 		},
+		checkPassword: function(params,callback) {
+			var params = params ? params : {};
+
+			userModel.findOne(params, function(error, data) {
+				var finalData = {};
+
+				finalData = error ? {ret: false, errmsg: error, data: {}} :
+							data ? {ret: true, errmsg: "", data: {}} : {ret: false, errmsg: "旧密码不正确！", data: ""};
+				callback(finalData);
+			});
+		},
 		checkLogin: function(params,callback) {
 			var params = params ? params : {};
 
@@ -118,15 +111,6 @@ var userController = (function() {
 
 				finalData = error ? {ret: false, errmsg: error, data: {}} :
 							data ? {ret: true, errmsg: "", data: {}} : {ret: false, errmsg: "用户名或密码不正确！", data: ""};
-				callback(finalData);
-			});
-		},
-		getMaxSort: function(params,callback) {
-			var params = params ? params : {};
-
-			userModel.findOne(params, {}, {sort: {sort: -1}},function(error, data) {
-				var finalData = formatData(error, data, {sort: 1});
-
 				callback(finalData);
 			});
 		}

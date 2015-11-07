@@ -12,12 +12,11 @@
 		height: 20px;
 		background: #ccc;
 	}
+	.markdown-body {
+		height: 100%;
+	}
 }
 .m-show-markdown {
-	.editormd-preview-wrapper {
-		display: flex;
-		flex: 1;
-	}
 	.editormd-preview {
 		position: static;
 		display: flex;
@@ -30,6 +29,8 @@
 			width: 980px;
 			margin: 0 auto;
 			flex: 1;
+			padding: 0 20px;
+			overflow: visible;
 		}
 	}
 	.content-ft {

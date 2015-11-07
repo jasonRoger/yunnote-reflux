@@ -7,7 +7,7 @@
 @import './app/upload.scss';
 @import './app/code.scss';
 @import './app/markdown.scss';
-
+@import './app/user.scss';
 #app {
 	height: 100%;
 }
@@ -140,9 +140,13 @@
 }
 .layout-table .cell {
 	color: #999;
+	text-align: center;
 }
 .layout-table .cell:last-child {
 	margin-right: 15px;
+}
+.layout-table .cell:first-child {
+	text-align: left;
 }
 .table-hd .cell {
 	line-height: 50px;
@@ -197,5 +201,14 @@
 	height: 10px;
 	background: #263339;
 }
-
+.ui-user-manage {
+	width: 80px;
+    line-height: 50px;
+	text-align: right;
+	padding-right: 10px;
+	cursor: pointer;
+}
+.ui-user-manage:hover {
+	color: #ccc;
+}
 

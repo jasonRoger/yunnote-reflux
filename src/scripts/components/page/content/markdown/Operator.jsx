@@ -1,7 +1,4 @@
-var React = require('react'),
-	Reflux = require('reflux'),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	markdownActions = require('./action.es6'),
 	markdownStore = require('./store.es6');
 
@@ -16,7 +13,11 @@ var Operator = React.createClass({
 	//用于处理新增或新建的后续操作
 	onOperateStatus: function(res) {
 		var hashObj = router.getHashObject();
+
 		if(res && res.ret) {
+			this.setState({
+				markdownEditor: null
+			});
 			router.replaceHash({
 				level: hashObj.handle == "edit" ? hashObj.level : res.data.level,
 				type: "markdown",
@@ -36,7 +37,6 @@ var Operator = React.createClass({
             path: "./editormd/lib/",
             height: "auto",
             markdown : data.detail,
-            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
             flowChart : true,             // 开启流程图支持，默认关闭
             sequenceDiagram : true       // 开启时序/序列图支持，默认关闭,
         });
@@ -57,7 +57,8 @@ var Operator = React.createClass({
 			level: hashObj.level,
 			type: hashObj.handle == "edit" ? "markdown" : "folder",
 			handle: "show",
-			id: hashObj.id
+			id: hashObj.id,
+			markdownEditor: null
 		});
 	},
 	saveMarkdown: function() {
@@ -107,7 +108,6 @@ var Operator = React.createClass({
 	                path: "./editormd/lib/",
 	                height: "auto",
 	                markdown : md,
-	                tex : true,                   // 开启科学公式TeX语言支持，默认关闭
 	                flowChart : true,             // 开启流程图支持，默认关闭
 	                sequenceDiagram : true       // 开启时序/序列图支持，默认关闭,
 	            });

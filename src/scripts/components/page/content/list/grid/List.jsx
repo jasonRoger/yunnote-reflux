@@ -1,6 +1,4 @@
-var React = require('react'),
-	Reflux = require("reflux"),
-	Item = require('./Item.jsx'),
+var Item = require('./Item.jsx'),
 	listActions = require("./action.es6"),
 	listStore = require("./store.es6");
 

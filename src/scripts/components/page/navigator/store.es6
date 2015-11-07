@@ -1,6 +1,4 @@
-var Reflux = require("reflux"),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	navActions = require("./action.es6");
 
 var URL = {

@@ -14,7 +14,7 @@ var express = require('express'),
 	upload = multer({ dest: 'public/uploads/pdf/' }),
 	async = require('async'),
 	config = require("../config.js");
-var systemProfile = fs.readFileSync(__dirname + '/../public/editormd/default.md', 'utf-8');
+var systemProfile = fs.readFileSync(__dirname + '/../public/editormd/systemProfile.md', 'utf-8');
 
 module.exports = function(app) {
 	//app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,6 +44,11 @@ module.exports = function(app) {
 		res.render("login", {title: "云笔记"})
 	});
 
+	app.get("/logout", function(req, res, next) {
+		req.session.username = null;
+		res.redirect('/login');
+	});
+
 	app.get("/reg", function(req, res, next) {
 		res.render("reg", {title: "云笔记"})
 	});
@@ -66,29 +71,43 @@ module.exports = function(app) {
 			password: req.body.password
 		}
 
-		userController.add(baseParams, function(data) {
+		userController.checkExist({username: req.body.username}, function(data) {
 			if(!data.ret) return res.send(data);
-			var defaultNav = {
-				name: "系统介绍",
-				sort: 1,
-				author: req.body.username
-			}
-			navController.add(defaultNav, function(data) {
-				if(!data.ret) return res.send(data);
-				var firstMarkDown = {
-						level: 1,
-						type: 'markdown',
-						pid: data.data.id,
-						name: "系统使用说明",
-						author: req.body.username,
-						sort: 1,
-						size: 0,
-						detail: systemProfile
-					}
 
-				fileController.add(firstMarkDown, function(data) {
-					res.send(data);
+			userController.add(baseParams, function(data) {
+				if(!data.ret) return res.send(data);
+				var defaultNav = {
+					name: "系统介绍",
+					sort: 1,
+					author: req.body.username
+				}
+				navController.add(defaultNav, function(data) {
+					if(!data.ret) return res.send(data);
+					var firstMarkDown = {
+							level: 1,
+							type: 'markdown',
+							pid: data.data.id,
+							name: "系统使用说明",
+							author: req.body.username,
+							sort: 1,
+							size: 0,
+							detail: systemProfile
+						}
+
+					fileController.add(firstMarkDown, function(data) {
+						res.send(data);
+					});
 				});
+			});
+		});
+	});
+
+	app.post("/api/updateUser.json", function(req, res, next) {
+		userController.checkPassword({username: req.session.username, password: req.body.oldPassword}, function(data) {
+			if(!data.ret) return res.send(data);
+
+			userController.update({username: req.session.username}, { password: req.body.password }, function(data) {
+				res.send(data);
 			});
 		});
 	});

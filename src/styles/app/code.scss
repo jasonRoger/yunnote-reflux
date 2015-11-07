@@ -60,4 +60,7 @@
 	.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
 		display: block!important;
 	}
+	.CodeMirror div.CodeMirror-cursor {
+		border-left: 1px solid #fff;
+	}
 }

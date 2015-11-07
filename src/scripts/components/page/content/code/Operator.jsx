@@ -1,7 +1,4 @@
-var React = require('react'),
-	Reflux = require('reflux'),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	codeActions = require('./action.es6'),
 	codeStore = require('./store.es6');
 var EDITOR = {
@@ -154,9 +151,7 @@ var Operator = React.createClass({
 			}
 		});
 		editorCss.on("keyup", function(editor, e) {
-			if(e.ctrlKey && e.keyCode == 13) {
-				self.updateStyle(editorCss);
-			}
+			self.updateStyle(editorCss);
 		});
 		self.setInitialStyle();
 		EDITOR = {
@@ -252,7 +247,7 @@ var Operator = React.createClass({
 		if(!libScripts.length) {
 			libScript = document.createElement("script");
 			libScript.type = 'text/javascript';
-			libScript.src = '/scripts/lib.min.js';
+			libScript.src = '/scripts/base.js';
 			libScript.className = "js-lib-script";
 			body.appendChild(libScript);
 		}

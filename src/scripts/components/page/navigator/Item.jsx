@@ -1,5 +1,3 @@
-var React = require('react');
-
 var Item = React.createClass({
 	setActiveStatus: function(e) {
 		this.props.setActiveStatus(e.target.dataset);

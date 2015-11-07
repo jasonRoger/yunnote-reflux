@@ -1,6 +1,4 @@
-var Reflux = require("reflux"),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	markdownActions = require("./action.es6");
 
 var URL = {

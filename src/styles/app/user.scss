@@ -1,0 +1,36 @@
+.m-user {
+   margin-top: -20px;
+}
+.m-user .ui-item {
+    display: flex;
+    width: 480px;
+    height: 36px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+}
+.m-user .ui-item .ui-label {
+    display: inline-block;
+    width: 50px;
+    background: #aaabab;
+    text-align: center;
+    color: #fff;
+}
+.m-user .ui-item .ui-input {
+    display: inline-block;
+    padding: 0;
+    flex: 1;
+    padding-left: 8px;
+    border: none;
+}
+.m-user .ui-error {
+    height: 30px;
+    background: #FDEEE9;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #4D4D4D;
+}
+.m-user .ui-error .ui-text {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 5px;
+}

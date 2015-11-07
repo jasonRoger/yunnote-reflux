@@ -1,7 +1,4 @@
-var React = require('react'),
-	Reflux = require("reflux"),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	pdfActions = require("./action.es6"),
 	pdfStore = require("./store.es6");
 
@@ -42,10 +39,10 @@ var Operator = React.createClass({
 			});
 			return ;
 		}
-		if(file && file.size >= 20971520 * 5) {
+		if(file && file.size >= 2097152 * 5) {
 			Modal.error({
 			    title: '错误提示： ',
-			    content: "请上传小于20M的pdf文件！"
+			    content: "请上传小于2M的pdf文件！"
 			});
 			this.setState({
 				name: "",

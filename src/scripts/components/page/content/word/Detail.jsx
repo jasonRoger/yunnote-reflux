@@ -1,6 +1,4 @@
-var React = require('react'),
-	Reflux = require('reflux'),
-	wordActions = require('./action.es6'),
+var wordActions = require('./action.es6'),
 	wordStore = require('./store.es6'),
 	Path = require("../../../lib/path/index.jsx");
 
@@ -29,17 +27,19 @@ var Detail = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className = "article">
-				<div className = "article-hd">
-					<div className = "show-article">
+			<div className = "content">
+				<div className = "content-hd">
+					<div className = "show-path">
 						<div className = "path-wrapper">
 							<Path />
 						</div>
 						<div className = "base-btn save-btn" onClick = {this.editArticle} >编辑</div>
 					</div>
 				</div>
-				<div className = "article-bd">
-					<div className = "js-detail" dangerouslySetInnerHTML = {{__html: this.state.detail}} ></div>
+				<div className = "content-bd">
+					<div className = "detail-wrapper">
+						<div className = "js-detail detail" dangerouslySetInnerHTML = {{__html: this.state.detail}} ></div>
+					</div>
 				</div>
 			</div>
 		);
