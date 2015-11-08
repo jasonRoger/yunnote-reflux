@@ -117,13 +117,55 @@ module.exports = function(app) {
 			author: req.session.username
 		};
 		navController.getAll(params, function(data) {
-			res.send(data);
+			var level = req.query.level,
+				id = req.query.id,
+				navData = {};
+
+			navData = {
+				ret: data.ret,
+				errmsg: data.errmsg,
+				data: {
+					isIdExist: false,
+					list: data.data
+				}
+			};
+
+			if(!navData.ret || navData.ret && (!id || typeof level == 'undefined')) res.send(navData);
+
+			getPath();
+			function getPath() {
+				if(level == 0){
+					navController.getOne({_id: id}, function(data) {
+						if(!data.ret) return res.send(navData);
+
+						var newNavList = navData.data.list.map(function(item, index) {
+							item.isActived = item.id == id ? true : false;
+							return item;
+						});
+						res.send({
+							ret: true,
+							errmsg: "",
+							data: {
+								isIdExist: true,
+								list: newNavList
+							}
+						});
+					});
+					return;
+				}
+				fileController.getOne({_id: id}, function(data) {
+					if(!data.ret) return res.send(navData);
+
+					level--;
+					id = data.data.pid;
+					getPath();
+				});
+			}
 		});
 	});
 
 	app.get("/api/pathList.json", function(req, res, next) {
-		var params = {},
-			level = req.query.level,
+		var level = req.query.level,
 			pathList = [],
 			id = req.query.id;
 

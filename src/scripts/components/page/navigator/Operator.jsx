@@ -24,7 +24,7 @@ var Operator = React.createClass({
 				errmsg: "",
 				modalVisible: false
 			});
-			navActions.showActions.getAll();
+			navActions.showActions.getAll(router.getHashObject());
 		}else {
 			this.setState({
 				errmsg: res.errmsg

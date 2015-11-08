@@ -27,7 +27,7 @@
     color: #fff;
 }
 .page {
-	min-width: 980px;
+	min-width: 1200px;
 	display: flex;
 	height: 100%;
 }
@@ -97,6 +97,9 @@
 	height: 100%;
 	padding: 0;
 	overflow-y: auto;
+}
+.pdf-content .content-bd {
+	overflow-y: hidden;
 }
 .content-ft {
 	height: 20px;

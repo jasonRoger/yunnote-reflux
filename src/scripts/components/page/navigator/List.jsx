@@ -10,10 +10,17 @@ var List = React.createClass({
 		};
 	},
 	onUpdateList: function(data) {
+		var routerObj = router.getHashObject();
 		this.setState({
-			list: data
+			list: data.list
 		});
-		router.setHash({level: 0, type: "folder", handle: "show", id: data[0].id, src: ""});
+		//如果初始url不带id则默认展示第一个导航信息，否则展示url对应的信息
+		if(routerObj.id && data.isIdExist) {
+			router.replaceHash({id: ""});
+			router.replaceHash({id: routerObj.id});
+		}else {
+			router.setHash({level: 0, type: "folder", handle: "show", id: data.list[0].id, src: ""});
+		}
 	},
 	setActiveStatus: function(navItem) {
 		var navList = this.state.list;
@@ -35,7 +42,7 @@ var List = React.createClass({
 		router.replaceHash({level: 0, id: navItem.navItemId, type: "folder", handle: "show", src: ""});
 	},
 	componentDidMount: function() {
-		navActions.showActions.getAll();
+		navActions.showActions.getAll(router.getHashObject());
 	},
 	render: function() {
 		var list = this.state.list;

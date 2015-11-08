@@ -29,7 +29,7 @@ var Pdf = React.createClass({
 			RouteHandleComp = RouteHandleCompMap[handle];
 
 		return (
-			<div className="content">
+			<div className="content pdf-content">
 				<div className="content-hd">
 					<Path />
 				</div>
