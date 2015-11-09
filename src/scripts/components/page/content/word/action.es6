@@ -1,5 +1,3 @@
-var Reflux = require("reflux");
-
 var showActions = Reflux.createActions([
 		"getWord"
 	]);

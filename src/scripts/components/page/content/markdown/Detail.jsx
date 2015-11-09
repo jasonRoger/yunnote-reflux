@@ -1,6 +1,4 @@
-var React = require('react'),
-	Reflux = require('reflux'),
-	markdownActions = require('./action.es6'),
+var markdownActions = require('./action.es6'),
 	markdownStore = require('./store.es6'),
 	Path = require("../../../lib/path/index.jsx");
 
@@ -12,9 +10,12 @@ var Detail = React.createClass({
 		};
 	},
 	setInitalMarkdown: function(data) {
-		this.setState({
-			detail: data.convertedMD
-		});
+		editormd.markdownToHTML("js-editormd-preview", {
+            markdown: data.detail ,//+ "\r\n" + $("#append-test").text(),
+            htmlDecode: "style,script,iframe",
+            flowChart: true,  // 默认不解析
+            sequenceDiagram: true,  // 默认不解析
+        });
 	},
 	editMarkdown: function() {
 		router.replaceHash({
@@ -35,10 +36,10 @@ var Detail = React.createClass({
 						<div className = "base-btn save-btn" onClick = {this.editMarkdown} >编辑</div>
 					</div>
 				</div>
-				<div className = "content-bd">
-					<div className = "editormd-preview">
-						<div className = "markdown-body editormd-preview-container" dangerouslySetInnerHTML = {{__html: this.state.detail}}></div>
-					</div>
+				<div className = "content-bd editormd-preview">
+					<div id="js-editormd-preview">
+		               <textarea style={{display: "none"}}></textarea>
+		            </div>
 				</div>
 			</div>
 		);

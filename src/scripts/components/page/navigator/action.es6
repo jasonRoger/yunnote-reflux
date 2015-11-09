@@ -1,6 +1,3 @@
-var Reflux = require("reflux");
-
-//获取导航数据action
 var showActions = Reflux.createActions([
 		"getAll"
 	]);

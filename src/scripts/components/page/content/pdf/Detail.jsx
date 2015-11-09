@@ -1,5 +1,3 @@
-var React = require('react');
-
 var Detail = React.createClass({
 	render: function() {
 		var pdfSrc = "/pdfweb/web/viewer.html?file=" + this.props.pdfSrc;

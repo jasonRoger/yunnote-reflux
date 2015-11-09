@@ -1,6 +1,4 @@
-var Reflux = require("reflux"),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	navActions = require("./action.es6");
 
 var URL = {
@@ -12,13 +10,13 @@ var URL = {
 
 var showStore = Reflux.createStore({
 	listenables: [navActions.showActions],
-	onGetAll: function() {
+	onGetAll: function(params) {
 		var self = this;
 		//请求导航列表数据
 		ajax({
 			url: URL.LIST,
 			type: "get",
-			data: {}
+			data: params
 		}).done(function(data) {
 			self.trigger(data);
 		}).fail(function(res) {

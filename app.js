@@ -19,7 +19,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {maxAge: 360000 * 24}));
 
 routes(app);
 
@@ -54,5 +54,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
+// app.listen(80);
 module.exports = app;

@@ -1,7 +1,4 @@
-var React = require('react'),
-	Reflux = require('reflux'),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	wordActions = require('./action.es6'),
 	wordStore = require('./store.es6');
 
@@ -113,14 +110,18 @@ var Operator = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className="article">
-				<div className="article-hd">
-					<input value={this.state.name} onChange={this.handleChange} type="text" className="title" placeholder="请输入文章标题！" />
-					<span className="base-btn save-btn" onClick={this.saveArticle} >保存</span>
-					<span className="base-btn save-btn" onClick={this.dropAndBack}>返回</span>
+			<div className = "content">
+				<div className = "content-hd">
+					<div className = "m-code">
+						<input value={this.state.name} onChange={this.handleChange} type="text" className="title" placeholder="请输入文章标题！" />
+						<span className="base-btn save-btn" onClick={this.saveArticle} >保存</span>
+						<span className="base-btn save-btn" onClick={this.dropAndBack}>返回</span>
+					</div>
 				</div>
-				<div className="article-bd">
-					<div id="article" type="text/plain" style = {{width: this.state.containerWidth, height: this.state.containerHeight}}></div>
+				<div className = "content-bd">
+					<div className = "edit-detail">
+						<div id="article" type="text/plain" style = {{width: this.state.containerWidth, height: this.state.containerHeight}}></div>
+					</div>
 				</div>
 			</div>
 		);

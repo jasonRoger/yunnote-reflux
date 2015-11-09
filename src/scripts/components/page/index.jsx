@@ -1,4 +1,3 @@
-var React = require('react');
 var Navigator = require("./navigator/index.jsx");
 var Content = require("./content/index.jsx");
 

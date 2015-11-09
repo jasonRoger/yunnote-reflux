@@ -1,5 +1,3 @@
-var webpack = require("webpack");
-var ignoreFiles = new webpack.IgnorePlugin(/^react$/);
 module.exports = {
 	module: {
 		loaders: [{

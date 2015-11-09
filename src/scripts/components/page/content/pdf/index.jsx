@@ -1,5 +1,4 @@
-var React = require('react'),
-	Detail = require('./Detail.jsx'),
+var Detail = require('./Detail.jsx'),
 	Operator = require('./Operator.jsx'),
 	Path = require("../../../lib/path/index.jsx");
 //组件映射，将根据hash的值来决定渲染特定的组件
@@ -30,7 +29,7 @@ var Pdf = React.createClass({
 			RouteHandleComp = RouteHandleCompMap[handle];
 
 		return (
-			<div className="content">
+			<div className="content pdf-content">
 				<div className="content-hd">
 					<Path />
 				</div>

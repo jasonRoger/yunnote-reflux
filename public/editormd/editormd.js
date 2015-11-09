@@ -504,7 +504,7 @@
                     return ;
                 }
 
-                if (settings.flowChart || settings.sequenceDiagram)
+                if (!(settings.flowChart || settings.sequenceDiagram))
                 {
                     editormd.loadScript(loadPath + "raphael.min", function() {
 
@@ -575,21 +575,23 @@
 
                         _this.setToolbar();
 
-                        editormd.loadScript(loadPath + "marked.min", function() {
+                        // editormd.loadScript(loadPath + "marked.min", function() {
 
-                            editormd.$marked = marked;
+                        //     editormd.$marked = marked;
 
-                            if (settings.previewCodeHighlight)
-                            {
-                                editormd.loadScript(loadPath + "prettify.min", function() {
-                                    loadFlowChartOrSequenceDiagram();
-                                });
-                            }
-                            else
-                            {
-                                loadFlowChartOrSequenceDiagram();
-                            }
-                        });
+                        //     if (settings.previewCodeHighlight)
+                        //     {
+                        //         editormd.loadScript(loadPath + "prettify.min", function() {
+                        //             loadFlowChartOrSequenceDiagram();
+                        //         });
+                        //     }
+                        //     else
+                        //     {
+                        //         loadFlowChartOrSequenceDiagram();
+                        //     }
+                        // });
+                        editormd.$marked = marked;
+                        loadFlowChartOrSequenceDiagram();
 
                     });
 
@@ -4104,6 +4106,11 @@
         into       = into     || "head";
         callback   = callback || function() {};
 
+        if(editormd.loadFiles.css.indexOf(fileName) != -1) {
+            callback();
+            return ;
+        }
+
         var css    = document.createElement("link");
         css.type   = "text/css";
         css.rel    = "stylesheet";
@@ -4137,6 +4144,11 @@
 
         into          = into     || "head";
         callback      = callback || function() {};
+
+        if(editormd.loadFiles.js.indexOf(fileName) != -1) {
+            callback();
+            return ;
+        }
 
         var script    = null;
         script        = document.createElement("script");

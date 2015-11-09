@@ -1,5 +1,3 @@
-var React = require('react');
-
 var Item = React.createClass({
 	updateHash: function(e) {
 		var dataset = $(e.target).parents(".row").get(0).dataset;
@@ -26,6 +24,8 @@ var Item = React.createClass({
 			showMarkdown = {display: itemInfo.type == "markdown" ? "block" : "none"},
 			showCode = {display: itemInfo.type == "code" ? "block" : "none"};
 
+		var fileType = itemInfo.type == "folder" ? "文件夹" : itemInfo.type;
+
 		return (
 			<div className="row" onMouseUp={this.contextMenuInit}
 						data-file-id = {itemInfo.id}
@@ -46,6 +46,7 @@ var Item = React.createClass({
 						{itemInfo.name}
 					</span>
 				</div>
+				<div className = "cell file-size js-cell">{fileType}</div>
 				<div className = "cell file-modify-time js-cell">{itemInfo.modifyTime}</div>
 				<div className = "cell file-modifier js-cell">{itemInfo.author}</div>
 				<div className = "cell file-size js-cell">{itemInfo.fileSize}</div>

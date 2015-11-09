@@ -1,7 +1,4 @@
-var React = require('react'),
-	Reflux = require("reflux"),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	Alert = antd.Alert,
 	listActions = require("./action.es6"),
 	listStore = require("./store.es6"),

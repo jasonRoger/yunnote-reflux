@@ -1,5 +1,4 @@
-var React = require('react'),
-	List = require('./List.jsx'),
+var List = require('./List.jsx'),
 	Operator = require('./Operator.jsx');
 
 var Grid = React.createClass({
@@ -20,6 +19,7 @@ var Grid = React.createClass({
 				<div className = "table-hd">
 					<div className = "row">
 						<div className = "cell file-name js-cell-hd">文件名</div>
+						<div className = "cell file-size js-cell-hd">文件类型</div>
 						<div className = "cell file-modify-time js-cell-hd">修改时间</div>
 						<div className = "cell file-modifier js-cell-hd">最近修改人</div>
 						<div className = "cell file-size js-cell-hd">文件大小</div>

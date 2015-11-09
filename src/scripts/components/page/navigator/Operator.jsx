@@ -1,7 +1,4 @@
-var React = require('react'),
-	Reflux = require("reflux"),
-	antd = require('antd'),
-	Modal = antd.Modal,
+var Modal = antd.Modal,
 	Alert = antd.Alert,
 	navActions = require("./action.es6"),
 	navStore = require("./store.es6"),
@@ -27,7 +24,7 @@ var Operator = React.createClass({
 				errmsg: "",
 				modalVisible: false
 			});
-			navActions.showActions.getAll();
+			navActions.showActions.getAll(router.getHashObject());
 		}else {
 			this.setState({
 				errmsg: res.errmsg

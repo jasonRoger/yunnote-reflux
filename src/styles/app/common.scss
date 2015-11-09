@@ -15,6 +15,18 @@
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }
+.icon-user:before {
+  content: "\e629";
+}
+.icon-password:before {
+  content: "\e62d";
+}
+.icon-password-again:before {
+  content: "\e62e";
+}
+.icon-user-manage:before {
+    content: "\e62a";
+}
 .base-btn {
     font-size: 12px;
     display: inline-block;

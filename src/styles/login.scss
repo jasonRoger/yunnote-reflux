@@ -8,35 +8,43 @@ body {
 #app {
   position: relative;
 }
+.base-btn:hover {
+  background: #000;
+    border: 1px solid #4c7ccf;
+}
 .m-login {
     position: relative;
     left: 50%;
-    top: 200px;
     width: 300px;
-    height: 200px;
-    padding: 50px;
+    padding: 44px 50px 28px;
     background: rgba(0,0,0, 0.6);
 }
-.m-login .ui-error {
-    display: inline-block;
-    width: 294px;
-    height: 30px;
-    line-height: 30px;
-    background: #FDEEE9;
-    padding-left: 6px;
-    font-size: 13px;
-    letter-spacing: 1px;
-    color: #4D4D4D;
+@media screen and (max-width: 1400px) {
+  .m-login {
+    top: 100px;
+  }
+}
+@media screen and (min-width: 1400px) {
+  .m-login {
+    top: 200px;
+    left: 56%;
+  }
 }
 .m-login .ui-form {
-
+  margin-top: -24px;
 }
 .m-login .ui-item {
     display: flex;
     width: 300px;
-    background: #f60;
     height: 40px;
     margin-top: 20px;
+}
+.m-login .ui-header {
+  height: 24px;
+  padding-bottom: 4px;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
 }
 .m-login .ui-item .ui-label {
     display: inline-block;
@@ -61,7 +69,6 @@ body {
   background: #0ae;
   letter-spacing: 50px;
   font-size: 20px;
-  margin-top: 20px;
   font-weight: bold;
   padding-left: 60px;
 }
@@ -69,5 +76,35 @@ body {
     background-color: #00a3d2;
     border-color: #00a3d2;
 }
-.icon-user:before { content: "\e629"; }
-.icon-password:before { content: "\e62d"; }
+.m-login .ui-error {
+    height: 30px;
+    background: #FDEEE9;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #4D4D4D;
+}
+.m-login .ui-error .ui-text {
+  height: 30px;
+  line-height: 30px;
+}
+.m-login .ui-footer {
+  height: 20px;
+  line-height: 20px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: #fff;
+}
+.m-login .ui-text {
+  flex: 1;
+  padding-left: 10px;
+}
+.m-login .ui-reg {
+  width: 100px;
+  padding-right: 16px;
+  color: #0ae;
+  text-align: right;
+  cursor: pointer;
+}
+.m-login .ui-reg:hover {
+  color: #08c;
+}
