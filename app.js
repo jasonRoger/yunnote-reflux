@@ -29,7 +29,6 @@ app.use(function(req, res, next) {
 });
 
 // error handlers
-app.listen(80);
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
