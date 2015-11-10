@@ -31,17 +31,19 @@ module.exports = function(app) {
 			port: config.PORT
 		})
 	}));
-
+	app.get("/", function(req, res, next) {
+		res.redirect('/index');
+	});
 	app.get('/index', checkLogin);
 	app.get("/index", function(req, res, next) {
 		res.render("index", {title: "云笔记"})
 	});
-	app.get("/", function(req, res, next) {
-		res.redirect('/index');
-	});
 	app.get('/login', checkNotLogin);
 	app.get("/login", function(req, res, next) {
 		res.render("login", {title: "云笔记"})
+	});
+	app.get('/favicon.ico', function(req, res) {
+		res.end('null');
 	});
 
 	app.get("/logout", function(req, res, next) {
@@ -412,13 +414,15 @@ module.exports = function(app) {
 	function checkLogin(req, res, next) {
 		if(!req.session.username) {
 			res.redirect('/login');
+		}else {
+			next();
 		}
-		next();
 	}
 	function checkNotLogin(req, res, next) {
 		if(req.session.username) {
 			res.redirect('/index');
+		}else {
+			next();
 		}
-		next();
 	}
 }
