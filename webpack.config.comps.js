@@ -11,7 +11,6 @@ module.exports = {
 	},
 	externals: [{
 		react: "window.React",
-		reflux: "window.Reflux",
-		antd: "window.antd"
+		reflux: "window.Reflux"
 	}]
 }

@@ -1,7 +1,8 @@
 var gulp = require("gulp"),
 	browserSync = require('browser-sync').create(),
 	gulpLoadPlugins = require("gulp-load-plugins"),
-	webpackConfig = require("./webpack.config.js"),
+	webpackConfigNormal = require("./webpack.config.normal.js"),
+	webpackConfigComps = require('./webpack.config.comps.js'),
 	named = require("vinyl-named"),
 	plugins = gulpLoadPlugins();
 /*
@@ -29,16 +30,17 @@ var PATH = {
 	PROXY: "http://localhost:3000",
 	SERVERROOT: "."
 }
-gulp.task('browserify', function() {
+gulp.task('webpackNormalJs', function() {
 	gulp.src(PATH.DEVJSNORMALENTRY)
-	.pipe(plugins.browserify())
+	.pipe(named())
+	.pipe(plugins.webpack(webpackConfigNormal))
 	.pipe(gulp.dest(PATH.JSDIST));
 });
 //js es6和jsx编译与打包
-gulp.task("webpack", function() {
+gulp.task("webpackComps", function() {
 	gulp.src(PATH.DEVJSCOMPENTRY)
 	.pipe(named())
-	.pipe(plugins.webpack(webpackConfig))
+	.pipe(plugins.webpack(webpackConfigComps))
 	.pipe(gulp.dest(PATH.JSDIST));
 });
 //sass编译
@@ -58,16 +60,17 @@ gulp.task("minCss", function() {
 	.pipe(gulp.dest(PATH.CSSDIST));
 });
 //js压缩
-gulp.task("minJsx", function() {
-	gulp.src(PATH.DEVJSCOMPENTRY)
+gulp.task("minNormalJs", function() {
+	gulp.src(PATH.DEVJSNORMALENTRY)
 	.pipe(named())
-	.pipe(plugins.webpack(webpackConfig))
+	.pipe(plugins.webpack(webpackConfigNormal))
 	.pipe(plugins.uglify())
 	.pipe(gulp.dest(PATH.JSDIST));
 });
-gulp.task("minJs", function() {
-	gulp.src(PATH.DEVJSNORMALENTRY)
-	.pipe(plugins.browserify())
+gulp.task("minComps", function() {
+	gulp.src(PATH.DEVJSCOMPENTRY)
+	.pipe(named())
+	.pipe(plugins.webpack(webpackConfigComps))
 	.pipe(plugins.uglify())
 	.pipe(gulp.dest(PATH.JSDIST));
 });
@@ -97,18 +100,18 @@ gulp.task("browserSyncProxy", function() {
 	});
 	gulp.watch(PATH.DEVRELOAD).on("change", browserSync.reload);
 });
+//压缩代码
+gulp.task("min", ["clean", "minCss", "minNormalJs", "minComps"]);
+//监控
+gulp.task("watch", function() {
+	gulp.watch(PATH.DEVJSCOMPWATCH, ["webpackComps"]);
+	gulp.watch(PATH.DEVJSNORMALWATCH, ["webpackNormalJs"]);
+	gulp.watch(PATH.DEVCSSWATCH, ["sass"]);
+});
 //启动服务并监控代码
 gulp.task("proxy", ["browserSyncProxy", "watch"]);
 //启动代理并监控代码
 gulp.task("server", ["browserSyncServer", "watch"]);
-//压缩代码
-gulp.task("min", ["clean", "minCss", "minJsx", "minJs"]);
-//监控
-gulp.task("watch", function() {
-	gulp.watch(PATH.DEVJSCOMPWATCH, ["webpack"]);
-	gulp.watch(PATH.DEVJSNORMALWATCH, ["browserify"]);
-	gulp.watch(PATH.DEVCSSWATCH, ["sass"]);
-});
 //默认执行监控
 gulp.task("default", ["watch"]);
 

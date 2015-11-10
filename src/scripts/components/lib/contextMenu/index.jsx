@@ -1,4 +1,3 @@
-var React = require('react');
 var MenuList = require("./MenuList.jsx");
 window.targetSelector = window.targetSelector ? window.targetSelector : [];
 window.menuIds = window.menuIds ? window.menuIds : [];

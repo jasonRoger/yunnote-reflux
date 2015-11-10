@@ -1,5 +1,3 @@
-var React = require('react');
-
 var Item = React.createClass({
 
 	updateHash: function(e) {

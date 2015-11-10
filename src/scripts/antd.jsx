@@ -1,0 +1,1 @@
+window.antd = require("antd");
