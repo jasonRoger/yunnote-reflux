@@ -19,7 +19,7 @@ var Operator = React.createClass({
 				markdownEditor: null
 			});
 			router.replaceHash({
-				level: hashObj.handle == "edit" ? hashObj.level : res.data.level,
+				level: hashObj.handle == "edit" ? hashObj.level : parseInt(hashObj.level) + 1,
 				type: "markdown",
 				handle: "show",
 				id: hashObj.handle == "edit" ? hashObj.id : res.data.id

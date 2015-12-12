@@ -19,6 +19,7 @@ var List = React.createClass({
 			router.replaceHash({id: ""});
 			router.replaceHash({id: routerObj.id});
 		}else {
+			if(data.list.length < 1) return ;
 			router.setHash({level: 0, type: "folder", handle: "show", id: data.list[0].id, src: ""});
 		}
 	},

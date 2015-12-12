@@ -2,7 +2,7 @@ var Modal = antd.Modal,
 	pathActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/pathList.json"
+	LIST: "/render/pathList.json"
 }
 
 var pathStore = Reflux.createStore({

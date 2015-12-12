@@ -35,7 +35,8 @@ var Operator = React.createClass({
 		});
 	},
 	componentDidMount: function() {
-		var self = this;
+		var self = this,
+			focusItem = '';
 
 		var editorHtml = CodeMirror.fromTextArea(document.getElementById("js-code-html"), {
 			mode : "htmlmixed",
@@ -64,23 +65,28 @@ var Operator = React.createClass({
 		    lineWrapping : true,
 		    matchBrackets : true
 		});
-		editorHtml.on("keyup", function(editor, e) {
-			if(e.ctrlKey && e.keyCode == 13) {
-				self.updateHtml(editorHtml);
-				self.updateStyle(editorCss);
-				self.updateScript(editorJs);
-			}
+		editorHtml.on("focus", function(editor, e) {
+			focusItem = 'html';
 		});
-		editorJs.on("keyup", function(editor, e) {
-			if(e.ctrlKey && e.keyCode == 13) {
-				self.updateHtml(editorHtml);
-				self.updateStyle(editorCss);
-				self.updateScript(editorJs);
-			}
+		editorJs.on("focus", function(editor, e) {
+			focusItem = 'js';
+		});
+		editorCss.on("focus", function(editor, e) {
+			focusItem = 'css';
 		});
 		editorCss.on("keyup", function(editor, e) {
 			self.updateStyle(editorCss);
 		});
+		document.addEventListener('keydown', function(e) {
+			if(e.keyCode == 83 && e.ctrlKey) {
+				e.preventDefault();
+				if(focusItem == 'js' || focusItem == 'html') {
+					self.updateHtml(editorHtml);
+					self.updateStyle(editorCss);
+					self.updateScript(editorJs);
+				}
+			}
+		}, true);
 		EDITOR = {
 			editorHtml: editorHtml,
 			editorJs: editorJs,

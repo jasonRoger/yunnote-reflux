@@ -18,10 +18,10 @@ var Operator = React.createClass({
 		var hashObj = router.getHashObject();
 		if(res && res.ret) {
 			router.replaceHash({
-				level: hashObj.handle == "edit" ? hashObj.level : res.data.level,
+				level: hashObj.handle == "edit" ? hashObj.level : parseInt(hashObj.level) + 1,
 				type: "code",
 				handle: "show",
-				id: hashObj.handle == "edit" ? hashObj.id : res.data.pid
+				id: hashObj.handle == "edit" ? hashObj.id : res.data.id
 			});
 		}else {
 			Modal.error({
@@ -107,6 +107,7 @@ var Operator = React.createClass({
 	},
 	componentDidMount: function() {
 		var self = this,
+			focusItem = '',
 			hashObj = router.getHashObject();
 
 		var editorHtml = CodeMirror.fromTextArea(document.getElementById("js-code-html"), {
@@ -136,23 +137,28 @@ var Operator = React.createClass({
 		    lineWrapping : true,
 		    matchBrackets : true
 		});
-		editorHtml.on("keyup", function(editor, e) {
-			if(e.ctrlKey && e.keyCode == 13) {
-				self.updateHtml(editorHtml);
-				self.updateStyle(editorCss);
-				self.updateScript(editorJs);
-			}
+		editorHtml.on("focus", function(editor, e) {
+			focusItem = 'html';
 		});
-		editorJs.on("keyup", function(editor, e) {
-			if(e.ctrlKey && e.keyCode == 13) {
-				self.updateHtml(editorHtml);
-				self.updateStyle(editorCss);
-				self.updateScript(editorJs);
-			}
+		editorJs.on("focus", function(editor, e) {
+			focusItem = 'js';
+		});
+		editorCss.on("focus", function(editor, e) {
+			focusItem = 'css';
 		});
 		editorCss.on("keyup", function(editor, e) {
 			self.updateStyle(editorCss);
 		});
+		document.addEventListener('keydown', function(e) {
+			if(e.keyCode == 83 && e.ctrlKey) {
+				e.preventDefault();
+				if(focusItem == 'js' || focusItem == 'html') {
+					self.updateHtml(editorHtml);
+					self.updateStyle(editorCss);
+					self.updateScript(editorJs);
+				}
+			}
+		}, true);
 		self.setInitialStyle();
 		EDITOR = {
 			editorHtml: editorHtml,

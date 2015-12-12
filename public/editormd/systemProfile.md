@@ -27,7 +27,7 @@
 ### 2. 在线编辑代码（新建代码）
 ![](/images/code.png)
 
-在线编辑器分做三个区域，左上方为html代码编辑区，左下方为javascript编辑器，中间部分为css代码编辑区，右方为效果预览区。如果你想预览html和js代码，只需按ctrl + enter键便可在右方预览效果，对于css代码，则是实时预览，另外js默认引入jquery，所以你可以放心的使用jquery来进行编码。
+在线编辑器分做三个区域，左上方为html代码编辑区，左下方为javascript编辑器，中间部分为css代码编辑区，右方为效果预览区。如果你想预览html和js代码，只需按ctrl + s键便可在右方预览效果，对于css代码，则是实时预览，另外js默认引入jquery，所以你可以放心的使用jquery来进行编码。
 ### 3. 新建word文档
 ![](/images/word.png)
 

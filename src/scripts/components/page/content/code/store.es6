@@ -2,9 +2,9 @@ var Modal = antd.Modal,
 	CodeActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/getCode.json",
-	ADD: "/api/addCode.json",
-	UPDATE: "/api/updateCode.json"
+	LIST: "/render/getCode.json",
+	ADD: "/api/addFile.json",
+	UPDATE: "/api/updateFile.json"
 }
 
 var showStore = Reflux.createStore({

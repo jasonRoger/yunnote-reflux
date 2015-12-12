@@ -2,7 +2,7 @@ var Modal = antd.Modal,
 	navActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/navList.json",
+	LIST: "/render/navList.json",
 	ADD: "/api/addNav.json",
 	UPDATE: "/api/updateNav.json",
 	DELETE: "/api/deleteNav.json"

@@ -2,8 +2,8 @@ var Modal = antd.Modal,
 	listActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/fileList.json",
-	ADD: "/api/addFolder.json",
+	LIST: "/render/fileList.json",
+	ADD: "/api/addFile.json",
 	UPDATE: "/api/updateFile.json",
 	DELETE: "/api/deleteFile.json"
 }

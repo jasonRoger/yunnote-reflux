@@ -2,33 +2,24 @@
 @import './app/reset.scss';
 @import './app/common.scss';
 body {
-    background: url('/images/login_bg1.webp') no-repeat;
-    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #09c;
+    background-image: radial-gradient(#09c, #293038);
 }
 #app {
   position: relative;
 }
 .base-btn:hover {
   background: #000;
-    border: 1px solid #4c7ccf;
+  border: 1px solid #4c7ccf;
 }
 .m-login {
-    position: relative;
-    left: 50%;
     width: 300px;
-    padding: 44px 50px 28px;
-    background: rgba(0,0,0, 0.6);
-}
-@media screen and (max-width: 1400px) {
-  .m-login {
-    top: 100px;
-  }
-}
-@media screen and (min-width: 1400px) {
-  .m-login {
-    top: 200px;
-    left: 56%;
-  }
+    padding: 30px 50px 28px;
+    border-radius: 20px;
+    background: rgba(0,0,0, 0.3);
 }
 .m-login .ui-form {
   margin-top: -24px;
@@ -50,6 +41,7 @@ body {
     display: inline-block;
     width: 50px;
     height: 40px;
+    line-height: 40px;
     background: #aaabab;
     text-align: center;
     color: #fff;

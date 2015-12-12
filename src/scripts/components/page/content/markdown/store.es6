@@ -2,7 +2,7 @@ var Modal = antd.Modal,
 	markdownActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/getWord.json",
+	LIST: "/render/getWord.json",
 	ADD: "/api/addFile.json",
 	UPDATE: "/api/updateFile.json"
 }

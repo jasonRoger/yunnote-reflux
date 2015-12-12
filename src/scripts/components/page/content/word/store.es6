@@ -2,7 +2,7 @@ var Modal = antd.Modal,
 	wordActions = require("./action.es6");
 
 var URL = {
-	LIST: "/api/getWord.json",
+	LIST: "/render/getWord.json",
 	ADD: "/api/addFile.json",
 	UPDATE: "/api/updateFile.json"
 }
