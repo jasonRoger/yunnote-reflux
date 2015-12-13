@@ -20,6 +20,11 @@ var Pdf = React.createClass({
 				pdfSrc: hashObj.src
 			});
 		}, "pdfHanleWatcher", this);
+		var hashObj = router.getHashObject();
+		this.setState({
+			handle: hashObj.handle,
+			pdfSrc: hashObj.src
+		});
 	},
 	componentWillUnmount: function() {
 		router.unWatchHashChange("pdfHanleWatcher");
