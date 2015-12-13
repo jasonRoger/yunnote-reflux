@@ -7,6 +7,7 @@ function formatData(data) {
 	data.map(function(item, index) {
 		item.fileSize = item.size ? (item.size / (1024 * 1024)).toFixed(1) + "M" : "0M";
 		item.modifyTime = tool.formatDate(item.modifyTime);
+		item.detail = item.type == 'pdf' ? item.detail : '';
 	});
 	return data;
 }
@@ -14,7 +15,7 @@ function formatData(data) {
 module.exports = {
 	getAll: function(params, callback) {
 		query({
-			sql: 'select id,name,level,pid,type,author,sort,modifyTime,size from files where pid=? and level=? and author=?',
+			sql: 'select id,name,level,pid,type,author,sort,modifyTime,size,detail from files where pid=? and level=? and author=?',
 			data: [params.pid, params.level, params.author],
 			callback: function(error, results, fields) {
 				var res = comm.fetchData(error, formatData(results));
