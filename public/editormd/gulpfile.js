@@ -20,3 +20,9 @@ gulp.task("mincode", function() {
 	.pipe(plugins.uglify())
 	.pipe(gulp.dest('./dist'));
 });
+
+gulp.task("minhint", function() {
+	gulp.src(['./lib/codemirror/addon/hint/hint.js'])
+	.pipe(plugins.uglify())
+	.pipe(gulp.dest('./dist'));
+});

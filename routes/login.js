@@ -12,7 +12,7 @@ function checkNotLogin(req, res, next) {
 router.get('/login', checkNotLogin);
 
 router.get("/", function(req, res, next) {
-	res.render("login", {title: "云笔记"})
+	res.render("login", {title: "足迹屋"})
 });
 
 module.exports = router;

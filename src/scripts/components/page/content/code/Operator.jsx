@@ -3,7 +3,6 @@ var Modal = antd.Modal,
 	codeStore = require('./store.es6');
 var EDITOR = {
 	editorHtml: null,
-	editorJs: null,
 	editorCss: null
 }
 var Operator = React.createClass({
@@ -41,12 +40,10 @@ var Operator = React.createClass({
 		var self = this;
 
 		EDITOR.editorHtml.setValue(data.codeHtml);
-		EDITOR.editorJs.setValue(data.codeJs);
 		EDITOR.editorCss.setValue(data.codeCss);
 		setTimeout(function() {
 			self.updateHtml(EDITOR.editorHtml);
 			self.updateStyle(EDITOR.editorCss);
-			self.updateScript(EDITOR.editorJs);
 		}, 300);
 	},
 	handleChange: function(e) {
@@ -78,8 +75,7 @@ var Operator = React.createClass({
 				id: hashObj.id,
 				name: this.state.name,
 				codeHtml: EDITOR.editorHtml.getValue(),
-				codeCss: EDITOR.editorCss.getValue(),
-				codeJs: EDITOR.editorJs.getValue()
+				codeCss: EDITOR.editorCss.getValue()
 			});
 			codeActions.operateActions.updateItem(data);
 		}else {
@@ -89,8 +85,7 @@ var Operator = React.createClass({
 				level: parseInt(hashObj.level) + 1,
 				name: this.state.name,
 				codeHtml: EDITOR.editorHtml.getValue(),
-				codeCss: EDITOR.editorCss.getValue(),
-				codeJs: EDITOR.editorJs.getValue()
+				codeCss: EDITOR.editorCss.getValue()
 			});
 			codeActions.operateActions.addItem(data);
 		}
@@ -114,24 +109,17 @@ var Operator = React.createClass({
 			mode : "htmlmixed",
 			theme: "3024-night",
 			tabSize : 2,
+			extraKeys: {"Ctrl-Space": "autocomplete"},
 			indentWithTabs : true,
 			lineNumbers : true,
 			lineWrapping : true,
 			matchBrackets : true
 		});
-		var editorJs = CodeMirror.fromTextArea(document.getElementById("js-code-js"), {
-		    mode : "javascript",
-		    theme: "3024-night",
-		    tabSize : 2,
-		    indentWithTabs : true,
-		    lineNumbers : true,
-		    lineWrapping : true,
-		    matchBrackets : true
-		});
 		var editorCss = CodeMirror.fromTextArea(document.getElementById("js-code-css"), {
 		    mode : "css",
 		    theme: "3024-night",
 		    tabSize : 2,
+		    extraKeys: {"Ctrl-Space": "autocomplete"},
 		    indentWithTabs : true,
 		    lineNumbers : true,
 		    lineWrapping : true,
@@ -139,9 +127,6 @@ var Operator = React.createClass({
 		});
 		editorHtml.on("focus", function(editor, e) {
 			focusItem = 'html';
-		});
-		editorJs.on("focus", function(editor, e) {
-			focusItem = 'js';
 		});
 		editorCss.on("focus", function(editor, e) {
 			focusItem = 'css';
@@ -152,39 +137,38 @@ var Operator = React.createClass({
 		document.addEventListener('keydown', function(e) {
 			if(e.keyCode == 83 && e.ctrlKey) {
 				e.preventDefault();
-				if(focusItem == 'js' || focusItem == 'html') {
+				if(focusItem == 'html') {
 					self.updateHtml(editorHtml);
 					self.updateStyle(editorCss);
-					self.updateScript(editorJs);
 				}
 			}
 		}, true);
 		self.setInitialStyle();
 		EDITOR = {
 			editorHtml: editorHtml,
-			editorJs: editorJs,
 			editorCss: editorCss
 		}
 		if(hashObj.handle == "add") {
-			self.setInitalCode(editorHtml, editorJs, editorCss);
+			self.setInitalCode(editorHtml, editorCss);
 		}else {
 			codeActions.showActions.getCode({id: router.getHashObject().id});
 		}
 	},
-	setInitalCode: function(editorHtml, editorJs, editorCss) {
+	setInitalCode: function(editorHtml, editorCss) {
 		var self = this;
 
 		editorHtml.setValue(['<!DOCTYPE html>',
                         '<html>',
                         '<head>',
                           '  <meta charset="utf-8">',
-                          '  <title>preview</title>',
+                          '  <title>足迹屋</title>',
                         '</head>',
                         '<body>',
                           '  <div class="test"></div>',
+                          '  <script type="text/javascript" src="/scripts/jquery.js"></script>',
+                          '  <script type="text/javascript">console.log($)</script>',
                         '</body>',
                         '</html>'].join("\r\n"));
-		editorJs.setValue('console.log(document.getElementsByClassName("test")[0])');
 		editorCss.setValue(['.test {',
 		                        '  width: 100px;',
 		                        '  height: 100px;',
@@ -193,30 +177,23 @@ var Operator = React.createClass({
 		setTimeout(function() {
 			self.updateHtml(editorHtml);
 			self.updateStyle(editorCss);
-			self.updateScript(editorJs);
 		}, 300);
 	},
 	setInitialStyle: function() {
 		var $codeHtmlWrapper = $("#js-code-html-wrapper"),
-			$codeJsWrapper = $("#js-code-js-wrapper"),
-			$codeCssWrapper = $("#js-code-css-wrapper"),
-			$codeHtmlParrents = $codeHtmlWrapper.parents(".col1");
+			$codeCssWrapper = $("#js-code-css-wrapper");
 
-		$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
-		$codeJsWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
+		$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlWrapper.height()});
 		$codeCssWrapper.find(".CodeMirror").css({height: $codeCssWrapper.height()});
-		$codeHtmlWrapper.find(".CodeMirror-gutters").css({height: $codeHtmlParrents.height() / 2 - 7});
-		$codeJsWrapper.find(".CodeMirror-gutters").css({height: $codeHtmlParrents.height() / 2 - 7});
+		$codeHtmlWrapper.find(".CodeMirror-gutters").css({height: $codeHtmlWrapper.height()});
 		$codeCssWrapper.find(".CodeMirror-gutters").css({height: $codeCssWrapper.height()});
 
-		$codeHtmlWrapper.find(".CodeMirror-vscrollbar").css({height: $codeHtmlParrents.height() / 2 - 7});
-		$codeJsWrapper.find(".CodeMirror-vscrollbar").css({height: $codeHtmlParrents.height() / 2 - 7});
+		$codeHtmlWrapper.find(".CodeMirror-vscrollbar").css({height: $codeHtmlWrapper.height()});
 		$codeCssWrapper.find(".CodeMirror-vscrollbar").css({height: $codeCssWrapper.height()});
 
 		window.onresize = function() {
 			setTimeout(function() {
-				$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
-				$codeJsWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
+				$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlWrapper.height()});
 				$codeCssWrapper.find(".CodeMirror").css({height: $codeCssWrapper.height()});
 			}, 300);
 		}
@@ -236,33 +213,10 @@ var Operator = React.createClass({
 		codeStyle.innerHTML = editorCss.getValue();
 		head.appendChild(codeStyle);
 	},
-	updateScript: function(editorJs) {
-		var body = window.frames["preview"].document.body,
-		codeScript = null,
-		libScript = null,
-		codeScripts = body.getElementsByClassName("js-preview-script"),
-		libScripts = body.getElementsByClassName("js-lib-script");
-
-		if(codeScripts.length) {
-			codeScript = codeScripts[0];
-		}else {
-			codeScript = document.createElement("script");
-			codeScript.type = 'text/javascript';
-			codeScript.className = "js-preview-script";
-		}
-		if(!libScripts.length) {
-			libScript = document.createElement("script");
-			libScript.type = 'text/javascript';
-			libScript.src = '/scripts/base.js';
-			libScript.className = "js-lib-script";
-			body.appendChild(libScript);
-		}
-		codeScript.innerHTML = editorJs.getValue();
-		body.appendChild(codeScript);
-	},
 	updateHtml: function(editorHtml) {
 		var previewDocumemt = window.frames["preview"].document;
-  		previewDocumemt.documentElement.innerHTML = editorHtml.getValue();
+  		previewDocumemt.write(editorHtml.getValue());
+  		previewDocumemt.close();
 	},
 	render: function() {
 		return (
@@ -279,13 +233,8 @@ var Operator = React.createClass({
 					</div>
 				</div>
 				<div className = "content-bd m-code">
-					<div className = "col1">
-						<div className = "row1" id = "js-code-html-wrapper">
-							<textarea id = "js-code-html"></textarea>
-						</div>
-						<div className = "row2" id = "js-code-js-wrapper">
-							<textarea id = "js-code-js"></textarea>
-						</div>
+					<div className = "col1" id = "js-code-html-wrapper">
+						<textarea id = "js-code-html"></textarea>
 					</div>
 					<div className = "col2" id = "js-code-css-wrapper">
 						<textarea id = "js-code-css"></textarea>

@@ -26,17 +26,16 @@ var MenuList = React.createClass({
 			for(var i = 0; i < targets.length; i++) {
 				if($(e.target).hasClass(targets[i])) {
 					e.preventDefault();
-					self.setState({
-						showMenu: true,
-						left: e.clientX + 5 + "px",
-						top: e.clientY + 5 + "px"
-					});
+					setTimeout(function() {
+						self.setState({
+							showMenu: true,
+							left: e.clientX + 5 + "px",
+							top: e.clientY + 5 + "px"
+						});
+					}, 100);
 					return ;
 				}
 			}
-			self.setState({
-				showMenu: false
-			});
 		});
 		$(document).on("click", function() {
 			self.setState({

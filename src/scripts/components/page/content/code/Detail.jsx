@@ -5,7 +5,6 @@ var Modal = antd.Modal,
 
 var EDITOR = {
 	editorHtml: null,
-	editorJs: null,
 	editorCss: null
 }
 var Operator = React.createClass({
@@ -13,20 +12,17 @@ var Operator = React.createClass({
 	getInitialState: function() {
 		return {
 			codeHtml: "",
-			codeCss: "",
-			codeJs: ""
+			codeCss: ""
 		};
 	},
 	setInitalCode: function(data) {
 		var self = this;
 
 		EDITOR.editorHtml.setValue(data.codeHtml);
-		EDITOR.editorJs.setValue(data.codeJs);
 		EDITOR.editorCss.setValue(data.codeCss);
 		setTimeout(function() {
 			self.updateHtml(EDITOR.editorHtml);
 			self.updateStyle(EDITOR.editorCss);
-			self.updateScript(EDITOR.editorJs);
 		}, 300);
 	},
 	editCode: function() {
@@ -42,54 +38,24 @@ var Operator = React.createClass({
 			mode : "htmlmixed",
 			theme: "3024-night",
 			tabSize : 2,
+			readOnly: true,
 			indentWithTabs : true,
 			lineNumbers : true,
 			lineWrapping : true,
 			matchBrackets : true
 		});
-		var editorJs = CodeMirror.fromTextArea(document.getElementById("js-code-js"), {
-		    mode : "javascript",
-		    theme: "3024-night",
-		    tabSize : 2,
-		    indentWithTabs : true,
-		    lineNumbers : true,
-		    lineWrapping : true,
-		    matchBrackets : true
-		});
 		var editorCss = CodeMirror.fromTextArea(document.getElementById("js-code-css"), {
 		    mode : "css",
 		    theme: "3024-night",
 		    tabSize : 2,
+		    readOnly: true,
 		    indentWithTabs : true,
 		    lineNumbers : true,
 		    lineWrapping : true,
 		    matchBrackets : true
 		});
-		editorHtml.on("focus", function(editor, e) {
-			focusItem = 'html';
-		});
-		editorJs.on("focus", function(editor, e) {
-			focusItem = 'js';
-		});
-		editorCss.on("focus", function(editor, e) {
-			focusItem = 'css';
-		});
-		editorCss.on("keyup", function(editor, e) {
-			self.updateStyle(editorCss);
-		});
-		document.addEventListener('keydown', function(e) {
-			if(e.keyCode == 83 && e.ctrlKey) {
-				e.preventDefault();
-				if(focusItem == 'js' || focusItem == 'html') {
-					self.updateHtml(editorHtml);
-					self.updateStyle(editorCss);
-					self.updateScript(editorJs);
-				}
-			}
-		}, true);
 		EDITOR = {
 			editorHtml: editorHtml,
-			editorJs: editorJs,
 			editorCss: editorCss
 		}
 		self.setInitialStyle();
@@ -97,25 +63,19 @@ var Operator = React.createClass({
 	},
 	setInitialStyle: function() {
 		var $codeHtmlWrapper = $("#js-code-html-wrapper"),
-			$codeJsWrapper = $("#js-code-js-wrapper"),
-			$codeCssWrapper = $("#js-code-css-wrapper"),
-			$codeHtmlParrents = $codeHtmlWrapper.parents(".col1");
+			$codeCssWrapper = $("#js-code-css-wrapper");
 
-		$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
-		$codeJsWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
+		$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlWrapper.height()});
 		$codeCssWrapper.find(".CodeMirror").css({height: $codeCssWrapper.height()});
-		$codeHtmlWrapper.find(".CodeMirror-gutters").css({height: $codeHtmlParrents.height() / 2 - 7});
-		$codeJsWrapper.find(".CodeMirror-gutters").css({height: $codeHtmlParrents.height() / 2 - 7});
+		$codeHtmlWrapper.find(".CodeMirror-gutters").css({height: $codeHtmlWrapper.height()});
 		$codeCssWrapper.find(".CodeMirror-gutters").css({height: $codeCssWrapper.height()});
 
-		$codeHtmlWrapper.find(".CodeMirror-vscrollbar").css({height: $codeHtmlParrents.height() / 2 - 7});
-		$codeJsWrapper.find(".CodeMirror-vscrollbar").css({height: $codeHtmlParrents.height() / 2 - 7});
+		$codeHtmlWrapper.find(".CodeMirror-vscrollbar").css({height: $codeHtmlWrapper.height()});
 		$codeCssWrapper.find(".CodeMirror-vscrollbar").css({height: $codeCssWrapper.height()});
 
 		window.onresize = function() {
 			setTimeout(function() {
-				$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
-				$codeJsWrapper.find(".CodeMirror").css({height: $codeHtmlParrents.height() / 2 - 7});
+				$codeHtmlWrapper.find(".CodeMirror").css({height: $codeHtmlWrapper.height()});
 				$codeCssWrapper.find(".CodeMirror").css({height: $codeCssWrapper.height()});
 			}, 300);
 		}
@@ -135,40 +95,10 @@ var Operator = React.createClass({
 		codeStyle.innerHTML = editorCss.getValue();
 		head.appendChild(codeStyle);
 	},
-	updateScript: function(editorJs) {
-		var body = window.frames["preview"].document.body,
-		codeScript = null,
-		libScript = null,
-		codeScripts = body.getElementsByClassName("js-preview-script"),
-		libScripts = body.getElementsByClassName("js-lib-script");
-
-		if(codeScripts.length) {
-			codeScript = codeScripts[0];
-		}else {
-			codeScript = document.createElement("script");
-			codeScript.type = 'text/javascript';
-			codeScript.className = "js-preview-script";
-		}
-		if(!libScripts.length) {
-			libScript = document.createElement("script");
-			libScript.type = 'text/javascript';
-			libScript.src = '/scripts/base.js';
-			libScript.className = "js-lib-script";
-			body.appendChild(libScript);
-		}
-		codeScript.innerHTML = editorJs.getValue();
-		body.appendChild(codeScript);
-	},
 	updateHtml: function(editorHtml) {
 		var previewDocumemt = window.frames["preview"].document;
-  		previewDocumemt.documentElement.innerHTML = editorHtml.getValue();
-	},
-	componentDidUpdate: function() {
-		var hashObj = router.getHashObject();
-
-		if(hashObj.handle == "edit") {
-
-		}
+  		previewDocumemt.write(editorHtml.getValue());
+  		previewDocumemt.close();
 	},
 	render: function() {
 		return (
@@ -182,13 +112,8 @@ var Operator = React.createClass({
 					</div>
 				</div>
 				<div className = "content-bd m-code">
-					<div className = "col1">
-						<div className = "row1" id = "js-code-html-wrapper">
-							<textarea id = "js-code-html"></textarea>
-						</div>
-						<div className = "row2" id = "js-code-js-wrapper">
-							<textarea id = "js-code-js"></textarea>
-						</div>
+					<div className = "col1" id = "js-code-html-wrapper">
+						<textarea id = "js-code-html"></textarea>
 					</div>
 					<div className = "col2" id = "js-code-css-wrapper">
 						<textarea id = "js-code-css"></textarea>

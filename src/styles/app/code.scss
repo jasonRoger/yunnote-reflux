@@ -20,7 +20,7 @@
     }
 	.col1 {
 		display: flex;
-		flex: 3;
+		flex: 1;
 		flex-direction: column;
 		.row1 {
 			flex: 1;
@@ -31,11 +31,11 @@
 		}
 	}
 	.col2 {
-		flex: 2;
+		flex: 1;
 	}
 	.col3 {
 		display: flex;
-		flex: 2;
+		flex: 1;
 		background: #fff;
 	}
 	.preview {
