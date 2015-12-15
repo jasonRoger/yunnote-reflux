@@ -1,13 +1,13 @@
 {
-  "antd.js": "3dd3f3993a",
-  "base.css": "6e5ecaa1a2",
+  "antd.js": "095257e8d4",
+  "base.css": "3c34109eae",
   "common.js": "c5b1e61a17",
-  "index.css": "2a6cbcfe00",
-  "index.js": "bd07667b6e",
+  "index.css": "9049807eeb",
+  "index.js": "a9bd2fdad6",
   "jquery.js": "1ba5824221",
-  "login.css": "9ad50d88f6",
-  "login.js": "5948ff5772",
+  "login.css": "62cfb1c78a",
+  "login.js": "7ffcefc103",
   "modules.js": "b540284785",
   "react.js": "0bf177ba4f",
-  "reg.js": "65fe4d69f5"
+  "reg.js": "57c29c8629"
 }

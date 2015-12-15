@@ -62,7 +62,7 @@ var Login = React.createClass({
 			<div className='m-login'>
 				<div className='ui-form'>
 					<div className='ui-item ui-header'>
-						<span className='ui-text'>登录云笔记</span>
+						<span className='ui-text'>登录足迹屋</span>
 					</div>
 					<div className='ui-item ui-error' style = {{display: this.state.errmsg ? "block" : "none"}}>
 						<span className='ui-text'>{this.state.errmsg}</span>
