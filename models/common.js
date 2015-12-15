@@ -1,3 +1,7 @@
+var fs = require('fs');
+var verions = require('../rev-manifest.json');
+var configs = require('../config.js');
+
 module.exports = {
 	composeData: function(ret, errcode, errmsg, data) {
 		return {
@@ -17,5 +21,11 @@ module.exports = {
 		} else {
 			return this.composeData(true, '', '', results);
 		}
+	},
+	getVersion: function() {
+		if(configs.ENV == 'dev') {
+			verions = JSON.parse(fs.readFileSync(__dirname + '/../rev-manifest.json'), 'utf8');
+		}
+		return verions;
 	}
 }

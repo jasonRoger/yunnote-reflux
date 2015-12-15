@@ -1,4 +1,4 @@
-var query = require('./DB.js');
+var db = require('./DB.js');
 var comm = require('./common.js');
 var tool = require('./tool.js');
 
@@ -14,7 +14,7 @@ function formatData(data) {
 
 module.exports = {
 	getAll: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select id,name,level,pid,type,author,sort,modifyTime,size,detail from files where pid=? and level=? and author=?',
 			data: [params.pid, params.level, params.author],
 			callback: function(error, results, fields) {
@@ -24,7 +24,7 @@ module.exports = {
 		});
 	},
 	getWord: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select id,name,level,pid,type,author,sort,detail from files where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -34,7 +34,7 @@ module.exports = {
 		});
 	},
 	getCode: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select id,name,level,pid,type,author,sort,codeHtml,codeJs,codeCss from files where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -44,7 +44,7 @@ module.exports = {
 		});
 	},
 	getMaxSort: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select sort from files where author=? and level=? and pid=? order by sort desc',
 			data: [params.author, params.level, params.pid],
 			callback: function(error, results, fields) {
@@ -57,7 +57,7 @@ module.exports = {
 		var sql = 'select id,pid,level,type,name from files where ' + (params.id ? '?' : 'name=? and author=? and level=? and pid=? and type=?'),
 			data = params.id ? params : [params.name, params.author,params.level, params.pid, params.type];
 
-		query({
+		db.query({
 			sql: sql,
 			data: data,
 			callback: function(error, results, fields) {
@@ -67,7 +67,7 @@ module.exports = {
 		});
 	},
 	isExist: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select id,pid,level,type,name from files where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -77,7 +77,7 @@ module.exports = {
 		});
 	},
 	add: function(params, callback) {
-		query({
+		db.query({
 			sql: 'insert into files set ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -87,7 +87,7 @@ module.exports = {
 		});
 	},
 	update: function(where, data, callback) {
-		query({
+		db.query({
 			sql: 'update files set ? where ?',
 			data: [data, where],
 			callback: function(error, results, fields) {
@@ -97,7 +97,7 @@ module.exports = {
 		});
 	},
 	remove: function(params, callback) {
-		query({
+		db.query({
 			sql: 'delete from files where ?',
 			data: params,
 			callback: function(error, results, fields) {

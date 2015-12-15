@@ -1,9 +1,9 @@
-var query = require('./DB.js');
+var db = require('./DB.js');
 var comm = require('./common.js');
 
 module.exports = {
 	checkExist: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select id from users where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -13,7 +13,7 @@ module.exports = {
 		});
 	},
 	checkPassword: function(params,callback) {
-		query({
+		db.query({
 			sql: 'select id from users where username=? and password=?',
 			data: [params.username, params.password],
 			callback: function(error, results, fields) {
@@ -23,7 +23,7 @@ module.exports = {
 		});
 	},
 	checkLogin: function(params,callback) {
-		query({
+		db.query({
 			sql: 'select id from users where username=? and password=?',
 			data: [params.username, params.password],
 			callback: function(error, results, fields) {
@@ -33,7 +33,7 @@ module.exports = {
 		});
 	},
 	add: function(params, callback) {
-		query({
+		db.query({
 			sql: 'insert into users set ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -44,7 +44,7 @@ module.exports = {
 		});
 	},
 	update: function(where, data, callback) {
-		query({
+		db.query({
 			sql: 'update users set ? where ?',
 			data: [data, where],
 			callback: function(error, results, fields) {

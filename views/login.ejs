@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width" />
 	<title><%= title %></title>
-	<link rel="stylesheet" type="text/css" href="/styles/login.css">
+	<link rel="stylesheet" type="text/css" href="/styles/login.css?v=<%= verions['login.css'] %>">
 </head>
 <body>
 <div id="app"></div>
-<script type="text/javascript" src="/scripts/react.js"></script>
-<script type="text/javascript" src="/scripts/common.js"></script>
-<script type="text/javascript" src="/scripts/login.js"></script>
+<script type="text/javascript" src="/scripts/react.js?v=<%= verions['react.js'] %>"></script>
+<script type="text/javascript" src="/scripts/common.js?v=<%= verions['common.js'] %>"></script>
+<script type="text/javascript" src="/scripts/login.js?v=<%= verions['login.js'] %>"></script>
 </body>
 </html>

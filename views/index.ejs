@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width" />
 	<title><%= title %></title>
-	<link rel="stylesheet" type="text/css" href="/styles/base.css">
+	<link rel="stylesheet" type="text/css" href="/styles/base.css?v=<%= verions['base.css'] %>">
 	<link rel="stylesheet" type="text/css" href="/editormd/css/editormd.min.css">
 	<link rel="stylesheet" type="text/css" href="/editormd/lib/codemirror/codemirror.min.css">
-	<link rel="stylesheet" type="text/css" href="/styles/index.css">
+	<link rel="stylesheet" type="text/css" href="/styles/index.css?v=<%= verions['index.css'] %>">
 </head>
 <body>
 <div id="app"></div>
-<script type="text/javascript" src="/scripts/react.js"></script>
-<script type="text/javascript" src="/scripts/antd.js"></script>
-<script type="text/javascript" src="/scripts/common.js"></script>
-<script type="text/javascript" src="/scripts/modules.js"></script>
+<script type="text/javascript" src="/scripts/react.js?v=<%= verions['react.js'] %>"></script>
+<script type="text/javascript" src="/scripts/antd.js?v=<%= verions['antd.js'] %>"></script>
+<script type="text/javascript" src="/scripts/common.js?v=<%= verions['common.js'] %>"></script>
+<script type="text/javascript" src="/scripts/modules.js?v=<%= verions['modules.js'] %>"></script>
 <script type="text/javascript" src="/editormd/dist/codemirror.js"></script>
 <script type="text/javascript" src="/editormd/dist/hint.js"></script>
 <script type="text/javascript" src="/editormd/dist/mdlib.js"></script>
-<script type="text/javascript" src="/scripts/index.js"></script>
+<script type="text/javascript" src="/scripts/index.js?v=<%= verions['index.js'] %>"></script>
 </body>
 </html>

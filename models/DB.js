@@ -1,9 +1,12 @@
 var mysql = require('mysql');
+var configs = require('../config.js');
+
 var pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'jasonroger0821',
-  database: 'zuji5'
+  host: configs.HOST,
+  port: configs.PORT,
+  user: configs.USER,
+  password: configs.PASSWORD,
+  database: configs.DBNAME
 });
 
 /**
@@ -24,4 +27,7 @@ var query = function(params) {
 	});
 }
 
-module.exports = query;
+module.exports = {
+	query: query,
+	pool: pool
+};

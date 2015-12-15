@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var comm = require('../models/common.js');
 
 function checkNotLogin(req, res, next) {
 	if(req.session.username) {
@@ -12,7 +13,11 @@ function checkNotLogin(req, res, next) {
 router.get('/login', checkNotLogin);
 
 router.get("/", function(req, res, next) {
-	res.render("login", {title: "足迹屋"})
+	var data = {
+		title: '足迹屋',
+		verions: comm.getVersion()
+	}
+	res.render("login", data);
 });
 
 module.exports = router;

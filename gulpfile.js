@@ -27,6 +27,7 @@ var PATH = {
 	DEVJSNORMALWATCH: ["./src/scripts/**/*.js", "!./src/scripts/components/**/*.js"],
     JSDIST: "./public/scripts/",
 	DEVRELOAD: ["./public/scripts/**/*.js", "./public/styles/**/*.css"],
+	VER: "./vers",
 	PROXY: "http://localhost:3000",
 	SERVERROOT: "."
 }
@@ -34,19 +35,28 @@ gulp.task('webpackNormalJs', function() {
 	gulp.src(PATH.DEVJSNORMALENTRY)
 	.pipe(named())
 	.pipe(plugins.webpack(webpackConfigNormal))
-	.pipe(gulp.dest(PATH.JSDIST));
+	.pipe(gulp.dest(PATH.JSDIST))
+	.pipe(plugins.rev())
+	.pipe(plugins.rev.manifest({base: PATH.VER, merge: true}))
+	.pipe(gulp.dest('refs'));
 });
 //js es6和jsx编译与打包
 gulp.task("webpackComps", function() {
 	gulp.src(PATH.DEVJSCOMPENTRY)
 	.pipe(named())
 	.pipe(plugins.webpack(webpackConfigComps))
-	.pipe(gulp.dest(PATH.JSDIST));
+	.pipe(gulp.dest(PATH.JSDIST))
+	.pipe(plugins.rev())
+	.pipe(plugins.rev.manifest({base: PATH.VER, merge: true}))
+	.pipe(gulp.dest('refs'));
 });
 //sass编译
 gulp.task("sass", function() {
 	plugins.rubySass(PATH.DEVCSSENTRY, { style: 'expanded' })
-	.pipe(gulp.dest(PATH.CSSDIST));
+	.pipe(gulp.dest(PATH.CSSDIST))
+	.pipe(plugins.rev())
+	.pipe(plugins.rev.manifest({base: PATH.VER, merge: true}))
+	.pipe(gulp.dest('refs'));
 })
 //清空css和js
 gulp.task("clean", function() {
@@ -57,7 +67,10 @@ gulp.task("clean", function() {
 gulp.task("minCss", function() {
 	plugins.rubySass(PATH.DEVCSSENTRY, { style: 'expanded' })
 	.pipe(plugins.minifyCss())
-	.pipe(gulp.dest(PATH.CSSDIST));
+	.pipe(gulp.dest(PATH.CSSDIST))
+	.pipe(plugins.rev())
+	.pipe(plugins.rev.manifest({base: PATH.VER, merge: true}))
+	.pipe(gulp.dest('refs'));
 });
 //js压缩
 gulp.task("minNormalJs", function() {
@@ -65,14 +78,20 @@ gulp.task("minNormalJs", function() {
 	.pipe(named())
 	.pipe(plugins.webpack(webpackConfigNormal))
 	.pipe(plugins.uglify())
-	.pipe(gulp.dest(PATH.JSDIST));
+	.pipe(gulp.dest(PATH.JSDIST))
+	.pipe(plugins.rev())
+	.pipe(plugins.rev.manifest({base: PATH.VER, merge: true}))
+	.pipe(gulp.dest('refs'));
 });
 gulp.task("minComps", function() {
 	gulp.src(PATH.DEVJSCOMPENTRY)
 	.pipe(named())
 	.pipe(plugins.webpack(webpackConfigComps))
 	.pipe(plugins.uglify())
-	.pipe(gulp.dest(PATH.JSDIST));
+	.pipe(gulp.dest(PATH.JSDIST))
+	.pipe(plugins.rev())
+	.pipe(plugins.rev.manifest({base: PATH.VER, merge: true}))
+	.pipe(gulp.dest('refs'));
 });
 //启动本地服务
 gulp.task("browserSyncServer", function() {

@@ -1,4 +1,4 @@
-var query = require('./DB.js');
+var db = require('./DB.js');
 var comm = require('./common.js');
 var tool = require('./tool.js');
 
@@ -14,7 +14,7 @@ function formatData(data) {
 
 module.exports = {
 	getAll: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select * from navs where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -27,7 +27,7 @@ module.exports = {
 		var sql = 'select id,name from navs where ' + (params.id ? '?' : 'name=? and author=?'),
 			data = params.id ? params : [params.name, params.author];
 
-		query({
+		db.query({
 			sql: sql,
 			data: data,
 			callback: function(error, results, fields) {
@@ -37,7 +37,7 @@ module.exports = {
 		});
 	},
 	isExist: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select id,name from navs where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -47,7 +47,7 @@ module.exports = {
 		});
 	},
 	add: function(params, callback) {
-		query({
+		db.query({
 			sql: 'insert into navs set ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -58,7 +58,7 @@ module.exports = {
 		});
 	},
 	update: function(where, data, callback) {
-		query({
+		db.query({
 			sql: 'update navs set ? where ?',
 			data: [data, where],
 			callback: function(error, results, fields) {
@@ -68,7 +68,7 @@ module.exports = {
 		});
 	},
 	remove: function(params, callback) {
-		query({
+		db.query({
 			sql: 'delete from navs where ?',
 			data: params,
 			callback: function(error, results, fields) {
@@ -78,7 +78,7 @@ module.exports = {
 		});
 	},
 	getMaxSort: function(params, callback) {
-		query({
+		db.query({
 			sql: 'select sort from navs where ? order by sort desc',
 			data: params,
 			callback: function(error, results, fields) {

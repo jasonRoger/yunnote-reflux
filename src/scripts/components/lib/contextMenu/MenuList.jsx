@@ -37,11 +37,13 @@ var MenuList = React.createClass({
 				}
 			}
 		});
-		$(document).on("click", function() {
-			self.setState({
-				showMenu: false
-			});
-		})
+		$(document).on("mouseup", function(e) {
+			if(e.which == 1) {
+				self.setState({
+					showMenu: false
+				});
+			}
+		});
 	},
 	addFile: function(e) {
 		var menuInfo = $(e.target).parents("li").get(0).dataset;

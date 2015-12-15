@@ -1,6 +1,8 @@
 module.exports = {
-	cookieSecret: "yunnote",
-	DBNAME: "yunnote",
-	HOSTNAME: "127.0.0.1",
-	PORT: 27017
+	DBNAME: "zuji5",
+	HOST: "localhost",
+	PORT: 3306,
+	USER: 'root',
+	PASSWORD: 'jasonroger0821',
+	ENV: 'dev'
 }

@@ -19,16 +19,21 @@ router.post('/addUser.json', function(req, res, next) {
 			createTime: null
 		}
 		userModel.add(baseParams, function(data) {
-			if(!data.ret) return res.send(data);
+			res.send(data);
+			if(!data.ret) return;
 			var defaultNav = {
 				name: "系统介绍",
 				sort: 1,
 				author: req.body.username,
 				createTime: null
 			}
+			var secondNavData = {
+				name: "学习资料",
+				sort: 2,
+				author: req.body.username,
+				createTime: null
+			}
 			navModel.add(defaultNav, function(data) {
-				if(!data.ret) return res.send(data);
-
 				var firstMarkDown = {
 						level: 1,
 						type: 'markdown',
@@ -41,9 +46,22 @@ router.post('/addUser.json', function(req, res, next) {
 						createTime: null
 					}
 
-				fileModel.add(firstMarkDown, function(data) {
-					res.send(data);
-				});
+				fileModel.add(firstMarkDown, function(data) {});
+			});
+			navModel.add(secondNavData, function(data) {
+				var firstPdf = {
+						level: 1,
+						type: 'pdf',
+						pid: data.data.id,
+						name: "正则表达式.pdf",
+						author: req.body.username,
+						sort: 1,
+						size: 199467,
+						detail: 'public/uploads/pdf/7b22068e593ed9bb1a5b4aacd7c7e538',
+						createTime: null
+					}
+
+				fileModel.add(firstPdf, function(data) {});
 			});
 		});
 	});
