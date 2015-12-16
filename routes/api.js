@@ -33,6 +33,12 @@ router.post('/addUser.json', function(req, res, next) {
 				author: req.body.username,
 				createTime: null
 			}
+			var thirdNavData = {
+				name: "特效集锦",
+				sort: 3,
+				author: req.body.username,
+				createTime: null
+			}
 			navModel.add(defaultNav, function(data) {
 				var firstMarkDown = {
 						level: 1,
@@ -62,6 +68,23 @@ router.post('/addUser.json', function(req, res, next) {
 					}
 
 				fileModel.add(firstPdf, function(data) {});
+			});
+			navModel.add(thirdNavData, function(data) {
+				var firstCode = {
+						level: 1,
+						type: 'code',
+						pid: data.data.id,
+						name: "css3动画",
+						author: req.body.username,
+						sort: 1,
+						size: 0,
+						detail: '',
+						codeCss: "html, body {\n\tpadding: 0;\n\tmargin: 0;\n\tbackground: #ed5565;\n\tcolor: #fff;\n}\n.main {\n\tpadding: 30px 40px;\n}\n@keyframes square-spin {\n  25% {\n\t\tbackground: blue;\n    transform: perspective(100px) rotateX(180deg) rotateY(0); \n\t}\n  50% {\n\t\tbackground: orange;\n    transform: perspective(100px) rotateX(180deg) rotateY(180deg); \n\t}\n  75% {\n\t\tbackground: silver;\n    transform: perspective(100px) rotateX(0) rotateY(180deg); \n\t}\n  100% {\n\t\tbackground: green;\n    transform: perspective(100px) rotateX(0) rotateY(0); \n\t} \n}\n.square-spin > div {\n  animation-fill-mode: both;\n  width: 70px;\n  height: 70px;\n  background: #fff;\n  animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite; \n}\n",
+						codeHtml: "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\">\n  <title>足迹屋</title>\n</head>\n<body>\n\t<div class=\"main\">\n\t\t<div class=\"square-spin\">\n      <div></div>\n    </div>\n\t</div>\n</body>\n</html>",
+						createTime: null
+					}
+
+				fileModel.add(firstCode, function(data) {});
 			});
 		});
 	});
@@ -132,6 +155,7 @@ router.post("/addFile.json", upload.single('pdfFile'), function(req, res, next) 
 	}
 
 	fileModel.checkExist(assign({type: req.body.type, name: req.body.name}, baseParams), function(data) {
+		console.log(req.body.codeCss);
 		if(!data.ret) return res.send(data);
 
 		fileModel.getMaxSort(baseParams, function(data) {

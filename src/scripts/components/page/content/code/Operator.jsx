@@ -38,9 +38,8 @@ var Operator = React.createClass({
 	},
 	setCode: function(data) {
 		var self = this;
-
-		EDITOR.editorHtml.setValue(data.codeHtml);
-		EDITOR.editorCss.setValue(data.codeCss);
+		EDITOR.editorHtml.setValue(JSON.parse(data.codeHtml));
+		EDITOR.editorCss.setValue(JSON.parse(data.codeCss));
 		setTimeout(function() {
 			self.updateHtml(EDITOR.editorHtml);
 			self.updateStyle(EDITOR.editorCss);
@@ -74,8 +73,8 @@ var Operator = React.createClass({
 			data = JSON.stringify({
 				id: hashObj.id,
 				name: this.state.name,
-				codeHtml: EDITOR.editorHtml.getValue(),
-				codeCss: EDITOR.editorCss.getValue()
+				codeHtml: JSON.stringify(EDITOR.editorHtml.getValue()),
+				codeCss: JSON.stringify(EDITOR.editorCss.getValue())
 			});
 			codeActions.operateActions.updateItem(data);
 		}else {
@@ -84,8 +83,8 @@ var Operator = React.createClass({
 				type: "code",
 				level: parseInt(hashObj.level) + 1,
 				name: this.state.name,
-				codeHtml: EDITOR.editorHtml.getValue(),
-				codeCss: EDITOR.editorCss.getValue()
+				codeHtml: JSON.stringify(EDITOR.editorHtml.getValue()),
+				codeCss: JSON.stringify(EDITOR.editorCss.getValue())
 			});
 			codeActions.operateActions.addItem(data);
 		}
