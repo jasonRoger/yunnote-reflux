@@ -1,0 +1,34 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	background: #ed5565;
+	color: #fff;
+}
+.main {
+	padding: 30px 40px;
+}
+@keyframes square-spin {
+  25% {
+		background: blue;
+    transform: perspective(100px) rotateX(180deg) rotateY(0);
+	}
+  50% {
+		background: orange;
+    transform: perspective(100px) rotateX(180deg) rotateY(180deg);
+	}
+  75% {
+		background: silver;
+    transform: perspective(100px) rotateX(0) rotateY(180deg);
+	}
+  100% {
+		background: green;
+    transform: perspective(100px) rotateX(0) rotateY(0);
+	}
+}
+.square-spin > div {
+  animation-fill-mode: both;
+  width: 70px;
+  height: 70px;
+  background: #fff;
+  animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite;
+}

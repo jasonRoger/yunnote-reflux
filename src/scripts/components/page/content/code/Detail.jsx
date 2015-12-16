@@ -18,8 +18,8 @@ var Operator = React.createClass({
 	setInitalCode: function(data) {
 		var self = this;
 
-		EDITOR.editorHtml.setValue(JSON.parse(data.codeHtml));
-		EDITOR.editorCss.setValue(JSON.parse(data.codeCss));
+		EDITOR.editorHtml.setValue(data.codeHtml);
+		EDITOR.editorCss.setValue(data.codeCss);
 		setTimeout(function() {
 			self.updateHtml(EDITOR.editorHtml);
 			self.updateStyle(EDITOR.editorCss);
