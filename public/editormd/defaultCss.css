@@ -17,7 +17,7 @@ html, body {
     transform: perspective(100px) rotateX(180deg) rotateY(180deg);
 	}
   75% {
-		background: silver;
+		background: #0dcecb;
     transform: perspective(100px) rotateX(0) rotateY(180deg);
 	}
   100% {

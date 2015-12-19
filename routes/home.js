@@ -9,7 +9,6 @@ function checkLogin(req, res, next) {
 		next();
 	}
 }
-
 router.get('/', checkLogin);
 
 router.get("/", function(req, res, next) {
